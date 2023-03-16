@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+
+{% block content %}
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <label for="{{ form.username_or_email.id_for_label }}">Логин или почта:</label>
+        {{ form.username_or_email }}
+
+        <label for="{{ form.password.id_for_label }}">Пароль:</label>
+        {{ form.password }}
+
+        <button type="submit">Войти</button>
+    </form>
+
+    {% if messages %}
+        {% for message in messages %}
+            <strong style="color: red">{{ message }}</strong><br><br>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
