@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'apps.index',
     'apps.user',
+    'apps.product',
 
 ]
 
@@ -139,3 +140,5 @@ AUTH_USER_MODEL = 'user.User'
 
 LOGIN_REDIRECT_URL = reverse_lazy('index:index')
 LOGOUT_REDIRECT_URL = reverse_lazy('index:index')
+
+FIXTURE_DIRS = [BASE_DIR / 'fixtures']

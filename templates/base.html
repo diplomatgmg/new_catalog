@@ -29,7 +29,11 @@
     <div class="login">
         {% if user.is_authenticated %}
             Привет, {{ user.username }}
+            {% if user.is_staff %}
+                <a href="{% url 'admin:index' %}">Админка</a>
+            {% endif %}
             <a href="{% url 'logout' %}">Выход</a>
+
         {% else %}
             <a href="{% url 'login' %}">Вход</a>
             <a href="{% url 'register' %}">Регистрация</a>
