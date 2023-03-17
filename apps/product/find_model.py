@@ -1,57 +1,60 @@
-from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse
 from apps.product.models import CPUModel
+import re
+
+from fuzzywuzzy import process
 
 PRODUCT_MODELS = (
     CPUModel,
 )
 
+
 def find_model(request):
     query = request.GET.get('q')
-    result = string_similarity(query)
     query_params = '?' + request.META['QUERY_STRING']
+    slugs = get_slugs()
 
-    if result:
-        slug = result.category.slug
-        url = reverse(f'product:{slug}')
-        request.session['query'] = query
-        response = redirect(url + query_params, query)
-        return response
-    else:
-        messages.warning(request, 'Похоже, поиск сломался. '
-                                  'Пожалуйста, уточните категорию вручную.')
-        return redirect(reverse('index:index') + query_params)
+    best_match = [(model, find_match(query, slug)) for model, slug in slugs.items()]
 
+    model = best_match[0][0].objects.filter(slug=best_match[0][1]).last()
+    slug = model.category.slug
+    url = reverse(f'product:{slug}')
+    request.session['query'] = query
+    response = redirect(url + query_params, query)
+    return response
 
 
+def get_slugs():
+    return {model: list(model.objects.values_list('slug', flat=True)) for model in PRODUCT_MODELS}
 
 
-def string_similarity(query):
+def find_match(string_1, seq):
+    """
+    Функция для поиска наилучшего совпадения между строками.
+    """
+    string_1 = clean_string(string_1)
+    matches = process.extract(string_1, seq, scorer=string_similarity)
+    matches.sort(key=lambda x: x[1], reverse=True)
+    return matches[0][0] if matches else None
+
+
+def string_similarity(string_1, string_2):
     """
     Функция для вычисления сходства двух строк.
     """
-    # Приводим строки к нижнему регистру
-    query = ' '.join(word for word in query.strip().lower().split() if len(word) >= 3)
+    len1, len2 = len(string_1), len(string_2)
+    common_chars = set(string_1) & set(string_2)
+    common_count = sum(min(string_2.count(char), string_1.count(char)) for char in common_chars)
+    return (2.0 * common_count) / (len1 + len2) * 100
 
-    for model in PRODUCT_MODELS:
-        models = model.objects.all()
-        for product in models:
 
-            word = ' '.join(word for word in product.slug.split('-') if len(word) >= 3)
+def clean_string(string):
+    """
+    Функция, которая оставляет только буквы и цифры в строке
+    """
+    return re.sub(r'[^a-z0-9\s]', ' ', string.strip().lower())
 
-            # Вычисляем длины строк
-            len1 = len(query)
-            len2 = len(word)
 
-            # Находим количество общих символов
-            common_chars = set(query) & set(word)
-            common_count = sum(min(query.count(char), word.count(char)) for char in common_chars)
-
-            # Вычисляем процентное соотношение сходства строк
-            similarity = (2.0 * common_count) / (len1 + len2) * 100
-
-            if int(similarity) in range(75, 101):
-                return product
-            else:
-                print(product.slug, similarity)
+def min_length(string):
+    return min(len(word) for word in string.split())

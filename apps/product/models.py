@@ -29,7 +29,8 @@ class Category(models.Model):
 class BaseProductModel(models.Model):
     category = models.ForeignKey('Category', on_delete=models.PROTECT,
                                  verbose_name='Категория')
-    brand = models.ForeignKey('Brand', on_delete=models.PROTECT, verbose_name='Бренд')
+    brand = models.ForeignKey('Brand', on_delete=models.CASCADE, verbose_name='Производитель',
+                              help_text='Введите производителя процессора')
     slug = models.SlugField('Слаг', max_length=32, unique=True, blank=True)
 
     class Meta:
@@ -37,8 +38,6 @@ class BaseProductModel(models.Model):
 
 
 class CPUModel(BaseProductModel):
-    brand = models.ForeignKey('Brand', on_delete=models.CASCADE, verbose_name='Производитель',
-                              help_text='Введите производителя процессора')
     family = models.CharField(max_length=50, verbose_name='Семейство',
                               help_text='Пример: Ryzen 9')
     model = models.CharField(max_length=50, verbose_name='Модель',

@@ -15,7 +15,7 @@ def string_similarity(string_1, string_2):
 
     # Находим количество общих символов
     common_chars = set(string_1) & set(string_2)
-    common_count = sum(min(s1.count(char), string_2.count(char)) for char in common_chars)
+    common_count = sum(min(string_2.count(char), string_2.count(char)) for char in common_chars)
 
     # Вычисляем процентное соотношение сходства строк
     similarity = (2.0 * common_count) / (len1 + len2) * 100
