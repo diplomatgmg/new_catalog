@@ -62,7 +62,7 @@ body {
     padding: 0;
 }
 
-form {
+.login-form {
     max-width: 500px;
     margin: 30px auto;
     padding: 20px;
@@ -103,3 +103,166 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #2E8B57;
 }
+
+
+.product-list {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+.product-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.product-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.product-list li h3 {
+    margin: 0;
+    flex-grow: 1;
+}
+
+.product-list li .price {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.product-list li .compare-link {
+    color: blue;
+    text-decoration: none;
+}
+
+.product-list li .compare-link:hover {
+    text-decoration: underline;
+}
+
+
+#search-container {
+    position: relative;
+    margin: auto;
+    width: 400px;
+    height: 40px;
+}
+
+#search-input {
+    width: 100%;
+    height: 100%;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+#search-button {
+    position: relative;
+    bottom: 75px;
+    left: 180px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+
+.container {
+    margin-top: 25px;
+    display: flex;
+}
+
+.product-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.product:hover {
+    background-color: #e0e0e0;
+}
+
+.product-name {
+    margin-left: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+
+.product-compare {
+    margin-right: 20px;
+    font-size: 14px;
+    color: #0066cc;
+    cursor: pointer;
+}
+
+.filter {
+    margin-right: 20px;
+    margin-left: 15px;
+    flex-basis: 400px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.filter h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.filter form {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.filter select {
+    font-size: 16px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.filter button {
+    font-size: 18px;
+    padding: 10px;
+    background-color: #0066cc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filter button:hover {
+    background-color: #0059b3;
+}
+
+
+fieldset {
+    margin-top: 10px;
+}
+
+
+
+

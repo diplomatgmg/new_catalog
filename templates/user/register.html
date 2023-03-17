@@ -4,7 +4,7 @@
 
 
 {% block content %}
-    <form action="{% url 'register' %}" method="post">
+    <form action="{% url 'register' %}" method="post" class="login-form">
             {% csrf_token %}
 
         <label for="{{ form.username.id_for_label }}">Имя пользователя:</label>

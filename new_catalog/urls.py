@@ -29,4 +29,5 @@ urlpatterns = [
     path('register/', UserRegisterView.as_view(), name='register'),
     path('logout/', LogoutView.as_view(), name='logout'),
 
+    path('category/', include('apps.product.urls', 'product')),
 ]

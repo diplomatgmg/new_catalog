@@ -37,26 +37,19 @@ class BaseProductModel(models.Model):
 
 
 class CPUModel(BaseProductModel):
-    name = models.CharField('Название',
-                            help_text='Пример: Ryzen <sub>7 7900x</sub>',
-                            max_length=16)
-
-    series = models.CharField('Серия',
-                              help_text='Пример: <sub>Ryzen</sub> 7 <sub>7900x</sub>',
-                              max_length=20)
-
-    generation = models.CharField('Поколение',
-                                  help_text='Пример: <sub>Ryzen 7</sub> 7<sub>900x</sub>',
-                                  max_length=3)
-
-    model = models.CharField('Модель',
-                             help_text='Пример: <sub>Ryzen 7 7</sub>900x',
-                             max_length=8)
-
-    price = models.PositiveIntegerField('Цена')
+    brand = models.ForeignKey('Brand', on_delete=models.CASCADE, verbose_name='Производитель',
+                              help_text='Введите производителя процессора')
+    family = models.CharField(max_length=50, verbose_name='Семейство',
+                              help_text='Пример: Ryzen 9')
+    model = models.CharField(max_length=50, verbose_name='Модель',
+                             help_text='Пример: 5900x')
+    num_cores = models.PositiveIntegerField(verbose_name='Количество ядер',
+                                            help_text='Введите количество ядер процессора')
+    clock_speed = models.DecimalField(max_digits=4, decimal_places=2, verbose_name='Тактовая частота',
+                                      help_text='Введите тактовую частоту процессора в GHz')
 
     def get_full_name(self):
-        return f'{self.brand.name} {self.name} {self.series} {self.generation}{self.model}'
+        return f'{self.brand.name} {self.family} {self.model}'
 
     def save(self, **kwargs):
         full_name = self.get_full_name()
@@ -65,5 +58,3 @@ class CPUModel(BaseProductModel):
 
     def __str__(self):
         return self.get_full_name()
-
-
