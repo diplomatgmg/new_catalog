@@ -1,6 +1,5 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from django.urls import reverse
 
 
 class Brand(models.Model):
@@ -32,6 +31,15 @@ class BaseProductModel(models.Model):
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE, verbose_name='Производитель',
                               help_text='Введите производителя процессора')
     slug = models.SlugField('Слаг', max_length=32, unique=True, blank=True)
+
+    def __lt__(self, other):
+        return str(self) < str(other)
+
+    def __gt__(self, other):
+        return str(self) < str(other)
+
+    def __eq__(self, other):
+        return str(self) == str(other)
 
     class Meta:
         abstract = True
