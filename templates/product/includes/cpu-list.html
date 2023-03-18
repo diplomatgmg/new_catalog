@@ -20,9 +20,9 @@
                 <fieldset>
                     <legend>Цена</legend>
                     <div class="filter-interval">
-                        <label>От <input type="number" name="min_price"
+                        <label>От <input type="number" name="min_price" disabled
                                          value="{{ request.GET.min_price }}"></label>
-                        <label>До <input type="number" name="max_price"
+                        <label>До <input type="number" name="max_price" disabled
                                          value="{{ request.GET.max_price }}"></label>
                     </div>
                 </fieldset>
@@ -47,26 +47,11 @@
 
                 <fieldset>
                     <legend>Количество ядер</legend>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="num_cores" value="4"
-                                   {% if '4' in request.GET|get_list:'num_cores' %}checked{% endif %}>
-                            4 ядра
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="num_cores" value="6"
-                                   {% if '6' in request.GET|get_list:'num_cores' %}checked{% endif %}>
-                            6 ядер
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="num_cores" value="8"
-                                   {% if '8' in request.GET|get_list:'num_cores' %}checked{% endif %}>
-                            8 ядер
-                        </label>
+                    <div class="filter-interval">
+                        <label>От <input type="number" name="min_num_cores" placeholder="2 ядер"
+                                         value="{{ request.GET.min_num_cores }}"></label>
+                        <label>До <input type="number" name="max_num_cores" placeholder="16 ядер"
+                                         value="{{ request.GET.max_num_cores }}"></label>
                     </div>
                 </fieldset>
 

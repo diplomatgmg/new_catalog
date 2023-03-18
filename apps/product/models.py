@@ -58,6 +58,9 @@ class CPUModel(BaseProductModel):
     def __str__(self):
         return self.get_full_name()
 
+    class Meta:
+        ordering = ('family', 'model')
+
 
 class GPUModel(BaseProductModel):
     family = models.CharField(max_length=50, verbose_name='Семейство',
@@ -80,3 +83,6 @@ class GPUModel(BaseProductModel):
 
     def __str__(self):
         return self.get_full_name()
+
+    class Meta:
+        ordering = ('family', 'model')
