@@ -1,0 +1,39 @@
+[
+  {
+    "model": "product.brand",
+    "pk": 1,
+    "fields": {
+      "name": "AMD"
+    }
+  },
+  {
+    "model": "product.brand",
+    "pk": 2,
+    "fields": {
+      "name": "Intel"
+    }
+  },
+  {
+    "model": "product.brand",
+    "pk": 3,
+    "fields": {
+      "name": "NVIDIA"
+    }
+  },
+  {
+    "model": "product.category",
+    "pk": 1,
+    "fields": {
+      "name": "Процессоры",
+      "slug": "cpu"
+    }
+  },
+  {
+    "model": "product.category",
+    "pk": 2,
+    "fields": {
+      "name": "Видеокарты",
+      "slug": "gpu"
+    }
+  }
+]

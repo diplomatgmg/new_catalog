@@ -1,0 +1,106 @@
+[
+  {
+    "model": "product.gpumodel",
+    "pk": 1,
+    "fields": {
+      "category": 2,
+      "brand": 3,
+      "slug": "nvidia-geforce-rtx-2060",
+      "family": "GeForce RTX",
+      "model": "2060",
+      "base_clock_speed": "1.00",
+      "boost_clock_speed": "1.50"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 2,
+    "fields": {
+      "category": 2,
+      "brand": 3,
+      "slug": "nvidia-geforce-rtx-2070",
+      "family": "GeForce RTX",
+      "model": "2070",
+      "base_clock_speed": "1.10",
+      "boost_clock_speed": "1.60"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 3,
+    "fields": {
+      "category": 2,
+      "brand": 3,
+      "slug": "nvidia-geforce-rtx-2080",
+      "family": "GeForce RTX",
+      "model": "2080",
+      "base_clock_speed": "1.20",
+      "boost_clock_speed": "1.70"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 4,
+    "fields": {
+      "category": 2,
+      "brand": 3,
+      "slug": "nvidia-geforce-rtx-3060-ti",
+      "family": "GeForce RTX",
+      "model": "3060 ti",
+      "base_clock_speed": "1.40",
+      "boost_clock_speed": "2.00"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 5,
+    "fields": {
+      "category": 2,
+      "brand": 3,
+      "slug": "nvidia-geforce-rtx-3070",
+      "family": "GeForce RTX",
+      "model": "3070",
+      "base_clock_speed": "2.00",
+      "boost_clock_speed": "2.50"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 6,
+    "fields": {
+      "category": 2,
+      "brand": 1,
+      "slug": "amd-radeon-rx-5600",
+      "family": "Radeon RX",
+      "model": "5600",
+      "base_clock_speed": "2.00",
+      "boost_clock_speed": "2.20"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 7,
+    "fields": {
+      "category": 2,
+      "brand": 1,
+      "slug": "amd-radeon-rx-6600xt",
+      "family": "Radeon RX",
+      "model": "6600xt",
+      "base_clock_speed": "2.00",
+      "boost_clock_speed": "2.50"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 8,
+    "fields": {
+      "category": 2,
+      "brand": 1,
+      "slug": "amd-radeon-rx-6900",
+      "family": "Radeon RX",
+      "model": "6900",
+      "base_clock_speed": "2.00",
+      "boost_clock_speed": "2.60"
+    }
+  }
+]
