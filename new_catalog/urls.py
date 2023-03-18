@@ -30,4 +30,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
 
     path('category/', include('apps.product.urls', 'product')),
+
+    path('compare/', include('apps.compare.urls', 'compare')),
 ]

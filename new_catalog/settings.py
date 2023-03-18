@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.index',
     'apps.user',
     'apps.product',
+    'apps.compare',
 
 ]
 
