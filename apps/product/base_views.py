@@ -47,3 +47,5 @@ class BaseProductListView(ListView):
                 })
 
         return queryset
+
+

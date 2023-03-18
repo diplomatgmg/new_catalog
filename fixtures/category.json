@@ -1,0 +1,18 @@
+[
+  {
+    "model": "product.category",
+    "pk": 1,
+    "fields": {
+      "name": "����������",
+      "slug": "cpu"
+    }
+  },
+  {
+    "model": "product.category",
+    "pk": 2,
+    "fields": {
+      "name": "����������",
+      "slug": "gpu"
+    }
+  }
+]
