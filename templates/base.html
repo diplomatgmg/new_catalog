@@ -29,7 +29,8 @@
     <form method="get" action="{% url 'product:find-model' %}">
         <div id="search-container">
             <label for="search-input"></label>
-            <input type="text" id="search-input" placeholder="Введите название товара..." name="q">
+            <input type="text" id="search-input" placeholder="Введите название товара..."
+                   name="q" value="{{ request.GET.q }}">
             <button type="submit" id="search-button"></button>
         </div>
     </form>

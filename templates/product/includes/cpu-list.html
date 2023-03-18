@@ -1,5 +1,5 @@
 {% extends  'base.html' %}
-
+{% load product_extras %}
 
 {% block content %}
 
@@ -8,122 +8,77 @@
             {% for product in products %}
                 <div class="product">
                     <div class="product-name">{{ product }}</div>
+                    <div class="product-name">Ядер: {{ product.num_cores }}</div>
+                    <div class="product-name">Частота: {{ product.clock_speed }}</div>
                     <div class="product-compare">Сравнить</div>
                 </div>
             {% endfor %}
         </div>
 
         <div class="filter">
-            <form>
+            <form method="get" action="{% url 'product:cpu' %}">
                 <fieldset>
-                    <legend>Фильтр</legend>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="0-50">
-                            До 50 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="50-100">
-                            От 50 до 100 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="100-500">
-                            От 100 до 500 рублей
-                        </label>
+                    <legend>Цена</legend>
+                    <div class="filter-interval">
+                        <label>От <input type="number" name="min_price"
+                                         value="{{ request.GET.min_price }}"></label>
+                        <label>До <input type="number" name="max_price"
+                                         value="{{ request.GET.max_price }}"></label>
                     </div>
                 </fieldset>
-                <fieldset>
-                    <legend>Фильтр</legend>
+
+                            <fieldset>
+                    <legend>Производитель</legend>
                     <div>
                         <label>
-                            <input type="checkbox" name="price" value="0-50">
-                            До 50 рублей
+                            <input type="checkbox" name="brand" value="AMD"
+                                   {% if 'AMD' in request.GET|get_list:'brand' %}checked{% endif %}>
+                            AMD
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" name="price" value="50-100">
-                            От 50 до 100 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="100-500">
-                            От 100 до 500 рублей
+                            <input type="checkbox" name="brand" value="Intel"
+                                   {% if 'Intel' in request.GET|get_list:'brand' %}checked{% endif %}>
+                            Intel
                         </label>
                     </div>
                 </fieldset>
 
                 <fieldset>
-                    <legend>Фильтр</legend>
+                    <legend>Количество ядер</legend>
                     <div>
                         <label>
-                            <input type="checkbox" name="price" value="0-50">
-                            До 50 рублей
+                            <input type="checkbox" name="num_cores" value="4"
+                                   {% if '4' in request.GET|get_list:'num_cores' %}checked{% endif %}>
+                            4 ядра
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" name="price" value="50-100">
-                            От 50 до 100 рублей
+                            <input type="checkbox" name="num_cores" value="6"
+                                   {% if '6' in request.GET|get_list:'num_cores' %}checked{% endif %}>
+                            6 ядер
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="checkbox" name="price" value="100-500">
-                            От 100 до 500 рублей
-                        </label>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Фильтр</legend>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="0-50">
-                            До 50 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="50-100">
-                            От 50 до 100 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="100-500">
-                            От 100 до 500 рублей
+                            <input type="checkbox" name="num_cores" value="8"
+                                   {% if '8' in request.GET|get_list:'num_cores' %}checked{% endif %}>
+                            8 ядер
                         </label>
                     </div>
                 </fieldset>
 
                 <fieldset>
-                    <legend>Фильтр</legend>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="0-50">
-                            До 50 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="50-100">
-                            От 50 до 100 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="100-500">
-                            От 100 до 500 рублей
-                        </label>
+                    <legend>Частота ядра</legend>
+                    <div class="filter-interval">
+                        <label>От <input type="number" name="min_clock_speed" placeholder="4100 МГц"
+                                         value="{{ request.GET.min_clock_speed }}"></label>
+                        <label>До <input type="number" name="max_clock_speed" placeholder="4500 МГц"
+                                         value="{{ request.GET.max_clock_speed }}"></label>
                     </div>
                 </fieldset>
-
 
                 <button type="submit">Применить</button>
 

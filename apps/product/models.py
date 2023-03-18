@@ -44,8 +44,8 @@ class CPUModel(BaseProductModel):
                              help_text='Пример: 5900x')
     num_cores = models.PositiveIntegerField(verbose_name='Количество ядер',
                                             help_text='Введите количество ядер процессора')
-    clock_speed = models.DecimalField(max_digits=4, decimal_places=2, verbose_name='Тактовая частота',
-                                      help_text='Введите тактовую частоту процессора в GHz')
+    clock_speed = models.PositiveIntegerField(verbose_name='Тактовая частота',
+                                              help_text='Введите тактовую частоту процессора в MHz')
 
     def get_full_name(self):
         return f'{self.brand.name} {self.family} {self.model}'
@@ -59,16 +59,16 @@ class CPUModel(BaseProductModel):
         return self.get_full_name()
 
 
-
 class GPUModel(BaseProductModel):
     family = models.CharField(max_length=50, verbose_name='Семейство',
                               help_text='Пример: GeForce RTX')
     model = models.CharField(max_length=50, verbose_name='Модель',
                              help_text='Пример: 3080')
     base_clock_speed = models.DecimalField(max_digits=4, decimal_places=2, verbose_name='Базовая тактовая частота',
-                                      help_text='Введите базовую тактовую частоту видеокарты в GHz')
-    boost_clock_speed = models.DecimalField(max_digits=4, decimal_places=2, verbose_name='Максимальная тактовая частота',
-                                      help_text='Введите максимальную тактовую частоту видеокарты в GHz')
+                                           help_text='Введите базовую тактовую частоту видеокарты в GHz')
+    boost_clock_speed = models.DecimalField(max_digits=4, decimal_places=2,
+                                            verbose_name='Максимальная тактовая частота',
+                                            help_text='Введите максимальную тактовую частоту видеокарты в GHz')
 
     def get_full_name(self):
         return f'{self.brand.name} {self.family} {self.model}'
