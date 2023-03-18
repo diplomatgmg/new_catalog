@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.product.models import Brand, Category, CPUModel
+from apps.product.models import Brand, Category, CPUModel, GPUModel
 
 
 @admin.register(Brand)
@@ -15,4 +15,9 @@ class CategoryModelAdmin(admin.ModelAdmin):
 
 @admin.register(CPUModel)
 class CPUModelAdmin(admin.ModelAdmin):
+    list_select_related = ('brand',)
+
+
+@admin.register(GPUModel)
+class GPUModelAdmin(admin.ModelAdmin):
     list_select_related = ('brand',)

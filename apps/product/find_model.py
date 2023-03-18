@@ -1,12 +1,13 @@
 from django.shortcuts import redirect
 from django.urls import reverse
-from apps.product.models import CPUModel
+from apps.product.models import CPUModel, GPUModel
 import re
 
 from fuzzywuzzy import process
 
 PRODUCT_MODELS = (
     CPUModel,
+    GPUModel,
 )
 
 
