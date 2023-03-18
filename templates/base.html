@@ -19,8 +19,8 @@
             <li>
                 <a href="#">Категории</a>
                 <ul>
-                    <li><a href="#">Процессоры</a></li>
-                    <li><a href="#">Видеокарты</a></li>
+                    <li><a href="{% url 'product:cpu' %}">Процессоры</a></li>
+                    <li><a href="{% url 'product:gpu' %}">Видеокарты</a></li>
                 </ul>
             </li>
         </ul>
@@ -50,6 +50,12 @@
     </div>
 
 </header>
+
+{% if messages %}
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+{% endif %}
 
 {% block content %}
 

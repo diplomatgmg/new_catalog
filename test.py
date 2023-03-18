@@ -1,26 +1,37 @@
 import re
-
 from fuzzywuzzy import process
-from datetime import datetime
+import numpy as np
 
 
 def string_similarity(string_1, string_2):
     """
     Функция для вычисления сходства двух строк.
     """
-
-    # Вычисляем длины строк
     len1 = len(string_1)
     len2 = len(string_2)
 
-    # Находим количество общих символов
-    common_chars = set(string_1) & set(string_2)
-    common_count = sum(min(string_2.count(char), string_2.count(char)) for char in common_chars)
+    # Вычисляем расстояние Левенштейна
+    dist = np.zeros((len1+1, len2+1), dtype=int)
+
+    for i in range(len1+1):
+        dist[i][0] = i
+
+    for j in range(len2+1):
+        dist[0][j] = j
+
+    for i in range(1, len1+1):
+        for j in range(1, len2+1):
+            if string_1[i-1] == string_2[j-1]:
+                cost = 0
+            else:
+                cost = 1
+
+            dist[i][j] = min(dist[i-1][j] + 1,
+                             dist[i][j-1] + 1,
+                             dist[i-1][j-1] + cost)
 
     # Вычисляем процентное соотношение сходства строк
-    similarity = (2.0 * common_count) / (len1 + len2) * 100
-
-    return similarity
+    return ((len1 + len2) - dist[len1][len2]) / (len1 + len2) * 100
 
 
 def clean_string(string):
@@ -31,11 +42,7 @@ def clean_string(string):
     return re.sub(r'[^a-z0-9\s]', ' ', s)
 
 
-def min_length(string):
-    return min(len(word) for word in string.split())
-
-
-def find_match(string_1, string_2):
+def find_match(string_1, seq):
     """
     Функция для поиска наилучшего совпадения между строками.
     """
@@ -43,22 +50,50 @@ def find_match(string_1, string_2):
     # Удаляем из s1 символы, отличные от букв и цифр и приводим к нижнему регистру
     string_1 = clean_string(string_1)
 
+    # Получаем минимальную длину слова в строке string_1
+    min_len = len(min(string_1.split(), key=len))
+
+    # Создаем словарь, в котором каждому слову из строки string_1 присваивается вес
+    weights = {}
+    for i, word in enumerate(string_1.split()):
+        weights[word] = 1.0 / (i + 1)
+
+    # Фильтруем slug, оставляя только те, которые начинаются с бренда из запроса
+    filtered_seq = []
+    for s in seq:
+        # Разбиваем строку на слова и отбираем только те, длина которых не меньше min_len
+        words = s.split('-')
+        words = [word for word in words if len(word) >= min_len]
+
+        # Удаляем бренд из slug если пользователь его не вводит
+        brand = words[0]
+        if brand not in string_1:
+            words = words[1:]
+
+        # Получаем slug
+        slug = ' '.join(words)
+
+        # Если slug начинается с бренда, то оставляем только часть slug после бренда
+        if slug.startswith(brand):
+            slug = slug[len(brand):].strip()
+            # Добавляем отфильтрованный slug в список
+            filtered_seq.append(slug)
+
     # Создаем список возможных вариантов совпадений
-    matches = process.extract(string_1, string_2, scorer=string_similarity)
+    matches = process.extract(string_1, filtered_seq, scorer=string_similarity)
 
     # Сортируем список возможных вариантов совпадений по убыванию коэффициента схожести
     matches.sort(key=lambda x: x[1], reverse=True)
 
     # Если список возможных вариантов совпадений не пуст, то выводим первый элемент списка
     if matches:
-        return matches[0][0]
+        return matches[0]
 
 
-s1 = 'ryzen 5500'
-s2 = ["amd-ryzen-5-5500", "amd-ryzen-7-5600x", "amd-ryzen-7-5800x", 'nvidia-rtx-2060'] * 10000 + ['nvidia-rtx-5500']
 
-start = datetime.now()
 
-print(find_match(s1, s2))
 
-print(datetime.now() - start)
+s1 = 'rtx'
+seq = ['amd-ryzen-5600x', 'nvidia-geforce-rtx-2060']
+
+print(find_match(s1, seq))
