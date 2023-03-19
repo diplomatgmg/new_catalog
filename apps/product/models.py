@@ -59,8 +59,7 @@ class CPUModel(BaseProductModel):
         return f'{self.brand.name} {self.family} {self.model}'
 
     def save(self, **kwargs):
-        full_name = self.get_full_name()
-        self.slug = slugify(full_name)
+        self.slug = slugify(self.get_full_name())
         super().save(**kwargs)
 
     def __str__(self):

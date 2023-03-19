@@ -11,9 +11,7 @@ class BaseComparison(ListView):
     context_object_name = 'comparison_list'
 
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user).first().products.select_related('brand').all()
-
-
+        return self.model.objects.filter(user=self.request.user).first().products.select_related('brand')
 
 
 class CPUComparisonListView(BaseComparison):
