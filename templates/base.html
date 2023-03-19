@@ -1,4 +1,5 @@
 {% load static %}
+{% load compare_extras %}
 
 
 <!DOCTYPE html>
@@ -24,7 +25,24 @@
                 </ul>
             </li>
             <li>
-                <a href="{% url 'compare:index' %}">Сравнение</a>
+                <a href="#">Сравнение</a>
+                {% if request.user.is_authenticated %}
+                    {% with comparison_categories=request.user|get_comparison_categories %}
+                        {% if comparison_categories %}
+                            <ul>
+                                {% for model, product in comparison_categories %}
+                                    <li><a href="{{ model.get_absolute_url }}">{{ product.category.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <ul>
+                                <li><a>Пусто</a></li>
+                            </ul>
+
+                        {% endif %}
+                    {% endwith %}
+                {% endif %}
+
             </li>
         </ul>
     </nav>
@@ -64,8 +82,6 @@
 {% block content %}
 
 {% endblock %}
-
-
 
 
 </body>

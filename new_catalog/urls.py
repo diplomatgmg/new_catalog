@@ -31,5 +31,5 @@ urlpatterns = [
 
     path('category/', include('apps.product.urls', 'product')),
 
-    path('compare/', include('apps.compare.urls', 'compare')),
+    path('compare/', include('apps.compare.urls', 'comparison')),
 ]
