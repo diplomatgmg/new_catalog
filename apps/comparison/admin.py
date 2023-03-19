@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.compare.models import CPUComparison, GPUComparison
+from apps.comparison.models import CPUComparison, GPUComparison
 
 
 class BaseComparisonAdmin(admin.ModelAdmin):

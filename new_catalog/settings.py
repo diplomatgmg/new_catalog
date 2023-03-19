@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'apps.index',
     'apps.user',
     'apps.product',
-    'apps.compare',
+    'apps.comparison',
 
 ]
 
@@ -143,3 +143,13 @@ LOGIN_REDIRECT_URL = reverse_lazy('index:index')
 LOGOUT_REDIRECT_URL = reverse_lazy('index:index')
 
 FIXTURE_DIRS = [BASE_DIR / 'fixtures']
+
+PRODUCT_MODELS = (
+    'product.CPUModel',
+    'product.GPUModel',
+)
+
+COMPARISON_MODELS = (
+    'comparison.CPUComparison',
+    'comparison.GPUComparison'
+)

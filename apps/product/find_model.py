@@ -1,16 +1,17 @@
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse
-from apps.product.models import CPUModel, GPUModel
 import re
 from fuzzywuzzy import process
 import numpy as np
+from django.conf import settings
+from django.apps import apps
 
+PRODUCT_MODELS = settings.PRODUCT_MODELS
 
-PRODUCT_MODELS = (
-    CPUModel,
-    GPUModel,
-)
+COMPARISON_MODELS = settings.COMPARISON_MODELS
+
+product_models = [apps.get_model(model_name) for model_name in COMPARISON_MODELS]
 
 
 def find_model(request):
@@ -43,7 +44,7 @@ def find_model(request):
 
 
 def get_slugs():
-    return {model: list(model.objects.values_list('slug', flat=True)) for model in PRODUCT_MODELS}
+    return {model: list(model.objects.values_list('slug', flat=True)) for model in product_models}
 
 
 def string_similarity(string_1, string_2):

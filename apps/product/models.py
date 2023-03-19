@@ -1,5 +1,9 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.urls import reverse
+from django.core.exceptions import ImproperlyConfigured
+
+from apps.comparison.models import CPUComparison, GPUComparison
 
 
 class Brand(models.Model):
@@ -55,6 +59,10 @@ class CPUModel(BaseProductModel):
     clock_speed = models.PositiveIntegerField(verbose_name='Тактовая частота',
                                               help_text='Введите тактовую частоту процессора в MHz')
 
+    @staticmethod
+    def get_comparison_model():
+        return CPUComparison
+
     def get_full_name(self):
         return f'{self.brand.name} {self.family} {self.model}'
 
@@ -79,6 +87,10 @@ class GPUModel(BaseProductModel):
     boost_clock_speed = models.DecimalField(max_digits=4, decimal_places=2,
                                             verbose_name='Максимальная тактовая частота',
                                             help_text='Введите максимальную тактовую частоту видеокарты в GHz')
+
+    @staticmethod
+    def get_comparison_model():
+        return GPUComparison
 
     def get_full_name(self):
         return f'{self.brand.name} {self.family} {self.model}'

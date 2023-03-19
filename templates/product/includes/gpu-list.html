@@ -1,4 +1,4 @@
-{% extends  'base.html' %}
+{% extends  'product/base-product.html' %}
 
 
 {% block content %}
@@ -8,7 +8,7 @@
             {% for product in products %}
                 <div class="product">
                     <div class="product-name">{{ product }}</div>
-                    <div class="product-compare">Сравнить</div>
+                    {% include 'product/includes/product-compare-include.html' %}
                 </div>
             {% endfor %}
         </div>
@@ -132,8 +132,5 @@
         </div>
 
     </div>
-
-
-
 
 {% endblock %}

@@ -1,4 +1,5 @@
-{% extends  'base.html' %}
+{% extends  'product/base-product.html' %}
+{% load static %}
 {% load product_extras %}
 
 {% block content %}
@@ -10,7 +11,9 @@
                     <div class="product-name">{{ product }}</div>
                     <div class="product-name">Ядер: {{ product.num_cores }}</div>
                     <div class="product-name">Частота: {{ product.clock_speed }}</div>
-                    <div class="product-compare">Сравнить</div>
+                    <div class="product-compare">
+                        {% include 'product/includes/product-compare-include.html' %}
+                    </div>
                 </div>
             {% endfor %}
         </div>
@@ -27,7 +30,7 @@
                     </div>
                 </fieldset>
 
-                            <fieldset>
+                <fieldset>
                     <legend>Производитель</legend>
                     <div>
                         <label>
@@ -77,3 +80,4 @@
 
 
 {% endblock %}
+
