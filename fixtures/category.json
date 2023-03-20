@@ -3,7 +3,7 @@
     "model": "product.category",
     "pk": 1,
     "fields": {
-      "name": "����������",
+      "name": "Процессоры",
       "slug": "cpu"
     }
   },
@@ -11,7 +11,7 @@
     "model": "product.category",
     "pk": 2,
     "fields": {
-      "name": "����������",
+      "name": "Видеокарты",
       "slug": "gpu"
     }
   }

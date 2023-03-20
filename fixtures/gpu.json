@@ -1,41 +1,15 @@
 [
   {
     "model": "product.gpumodel",
-    "pk": 1,
-    "fields": {
-      "category": 2,
-      "brand": 3,
-      "slug": "nvidia-geforce-rtx-2060",
-      "family": "GeForce RTX",
-      "model": "2060",
-      "base_clock_speed": "1.00",
-      "boost_clock_speed": "1.50"
-    }
-  },
-  {
-    "model": "product.gpumodel",
-    "pk": 2,
-    "fields": {
-      "category": 2,
-      "brand": 3,
-      "slug": "nvidia-geforce-rtx-2070",
-      "family": "GeForce RTX",
-      "model": "2070",
-      "base_clock_speed": "1.10",
-      "boost_clock_speed": "1.60"
-    }
-  },
-  {
-    "model": "product.gpumodel",
     "pk": 3,
     "fields": {
       "category": 2,
       "brand": 3,
-      "slug": "nvidia-geforce-rtx-2080",
-      "family": "GeForce RTX",
-      "model": "2080",
-      "base_clock_speed": "1.20",
-      "boost_clock_speed": "1.70"
+      "slug": "nvidia-geforce-gtx-1660",
+      "family": "GeForce GTX",
+      "model": "1660",
+      "base_clock_speed": "1530",
+      "boost_clock_speed": "1785"
     }
   },
   {
@@ -44,11 +18,11 @@
     "fields": {
       "category": 2,
       "brand": 3,
-      "slug": "nvidia-geforce-rtx-3060-ti",
+      "slug": "nvidia-geforce-rtx-3060",
       "family": "GeForce RTX",
-      "model": "3060 ti",
-      "base_clock_speed": "1.40",
-      "boost_clock_speed": "2.00"
+      "model": "3060",
+      "base_clock_speed": "1320",
+      "boost_clock_speed": "1777"
     }
   },
   {
@@ -60,8 +34,8 @@
       "slug": "nvidia-geforce-rtx-3070",
       "family": "GeForce RTX",
       "model": "3070",
-      "base_clock_speed": "2.00",
-      "boost_clock_speed": "2.50"
+      "base_clock_speed": "1500",
+      "boost_clock_speed": "1725"
     }
   },
   {
@@ -69,12 +43,12 @@
     "pk": 6,
     "fields": {
       "category": 2,
-      "brand": 1,
-      "slug": "amd-radeon-rx-5600",
-      "family": "Radeon RX",
-      "model": "5600",
-      "base_clock_speed": "2.00",
-      "boost_clock_speed": "2.20"
+      "brand": 3,
+      "slug": "nvidia-geforce-rtx-3080",
+      "family": "GeForce RTX",
+      "model": "3080",
+      "base_clock_speed": "1440",
+      "boost_clock_speed": "1710"
     }
   },
   {
@@ -82,12 +56,12 @@
     "pk": 7,
     "fields": {
       "category": 2,
-      "brand": 1,
-      "slug": "amd-radeon-rx-6600xt",
-      "family": "Radeon RX",
-      "model": "6600xt",
-      "base_clock_speed": "2.00",
-      "boost_clock_speed": "2.50"
+      "brand": 3,
+      "slug": "nvidia-geforce-rtx-3090",
+      "family": "GeForce RTX",
+      "model": "3090",
+      "base_clock_speed": "1395",
+      "boost_clock_speed": "1695"
     }
   },
   {
@@ -95,12 +69,25 @@
     "pk": 8,
     "fields": {
       "category": 2,
-      "brand": 1,
-      "slug": "amd-radeon-rx-6900",
+      "brand": 4,
+      "slug": "amd-radeon-rx-6900-xt",
       "family": "Radeon RX",
-      "model": "6900",
-      "base_clock_speed": "2.00",
-      "boost_clock_speed": "2.60"
+      "model": "6900 XT",
+      "base_clock_speed": "1825",
+      "boost_clock_speed": "2250"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 9,
+    "fields": {
+      "category": 2,
+      "brand": 4,
+      "slug": "amd-radeon-rx-6800-xt",
+      "family": "Radeon RX",
+      "model": "6800 XT",
+      "base_clock_speed": "2015",
+      "boost_clock_speed": "2250"
     }
   }
 ]

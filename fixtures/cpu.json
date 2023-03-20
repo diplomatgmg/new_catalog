@@ -1,93 +1,15 @@
 [
   {
     "model": "product.cpumodel",
-    "pk": 1,
-    "fields": {
-      "category": 1,
-      "brand": 1,
-      "slug": "amd-ryzen-3-5500",
-      "family": "Ryzen 3",
-      "model": "5500",
-      "num_cores": 6,
-      "clock_speed": 4300
-    }
-  },
-  {
-    "model": "product.cpumodel",
-    "pk": 2,
-    "fields": {
-      "category": 1,
-      "brand": 1,
-      "slug": "amd-ryzen-5-5600",
-      "family": "Ryzen 5",
-      "model": "5600",
-      "num_cores": 6,
-      "clock_speed": 4500
-    }
-  },
-  {
-    "model": "product.cpumodel",
-    "pk": 3,
-    "fields": {
-      "category": 1,
-      "brand": 1,
-      "slug": "amd-ryzen-5-5600x",
-      "family": "Ryzen 5",
-      "model": "5600x",
-      "num_cores": 6,
-      "clock_speed": 4400
-    }
-  },
-  {
-    "model": "product.cpumodel",
-    "pk": 4,
-    "fields": {
-      "category": 1,
-      "brand": 1,
-      "slug": "amd-ryzen-7-5800",
-      "family": "Ryzen 7",
-      "model": "5800",
-      "num_cores": 8,
-      "clock_speed": 4600
-    }
-  },
-  {
-    "model": "product.cpumodel",
-    "pk": 5,
-    "fields": {
-      "category": 1,
-      "brand": 1,
-      "slug": "amd-ryzen-7-5800x",
-      "family": "Ryzen 7",
-      "model": "5800x",
-      "num_cores": 8,
-      "clock_speed": 5000
-    }
-  },
-  {
-    "model": "product.cpumodel",
-    "pk": 6,
-    "fields": {
-      "category": 1,
-      "brand": 1,
-      "slug": "amd-ryzen-9-5900x",
-      "family": "Ryzen 9",
-      "model": "5900x",
-      "num_cores": 12,
-      "clock_speed": 5300
-    }
-  },
-  {
-    "model": "product.cpumodel",
     "pk": 7,
     "fields": {
       "category": 1,
-      "brand": 2,
-      "slug": "intel-core-i3-10100f",
-      "family": "Core i3",
-      "model": "10100f",
-      "num_cores": 6,
-      "clock_speed": 4100
+      "brand": 1,
+      "slug": "amd-ryzen-9-5950x",
+      "family": "Ryzen 9",
+      "model": "5950x",
+      "num_cores": 16,
+      "clock_speed": 4900
     }
   },
   {
@@ -95,12 +17,12 @@
     "pk": 8,
     "fields": {
       "category": 1,
-      "brand": 2,
-      "slug": "intel-core-i5-10400f",
-      "family": "Core i5",
-      "model": "10400f",
-      "num_cores": 6,
-      "clock_speed": 4200
+      "brand": 1,
+      "slug": "amd-ryzen-7-5800x",
+      "family": "Ryzen 7",
+      "model": "5800x",
+      "num_cores": 8,
+      "clock_speed": 4700
     }
   },
   {
@@ -108,11 +30,11 @@
     "pk": 9,
     "fields": {
       "category": 1,
-      "brand": 2,
-      "slug": "intel-core-i7-10700f",
-      "family": "Core i7",
-      "model": "10700f",
-      "num_cores": 8,
+      "brand": 1,
+      "slug": "amd-ryzen-5-5600x",
+      "family": "Ryzen 5",
+      "model": "5600x",
+      "num_cores": 6,
       "clock_speed": 4600
     }
   },
@@ -121,11 +43,167 @@
     "pk": 10,
     "fields": {
       "category": 1,
-      "brand": 2,
-      "slug": "intel-core-i9-10900kf",
-      "family": "Core i9",
-      "model": "10900kf",
+      "brand": 1,
+      "slug": "amd-ryzen-9-pro-5950x",
+      "family": "Ryzen 9 Pro",
+      "model": "5950x",
+      "num_cores": 16,
+      "clock_speed": 4900
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 11,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-7-pro-5850x",
+      "family": "Ryzen 7 Pro",
+      "model": "5850x",
       "num_cores": 12,
+      "clock_speed": 4700
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 12,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-5-pro-5650x",
+      "family": "Ryzen 5 Pro",
+      "model": "5650x",
+      "num_cores": 6,
+      "clock_speed": 4600
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 13,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-athlon-gold-3140u",
+      "family": "Athlon Gold",
+      "model": "3140u",
+      "num_cores": 2,
+      "clock_speed": 2400
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 14,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-athlon-silver-3050u",
+      "family": "Athlon Silver",
+      "model": "3050u",
+      "num_cores": 2,
+      "clock_speed": 2300
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 15,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-threadripper-pro-3995wx",
+      "family": "Ryzen Threadripper Pro",
+      "model": "3995wx",
+      "num_cores": 64,
+      "clock_speed": 2900
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 16,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-epyc-7763",
+      "family": "Epyc",
+      "model": "7763",
+      "num_cores": 64,
+      "clock_speed": 2800
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 17,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-threadripper-3970x",
+      "family": "Ryzen Threadripper",
+      "model": "3970x",
+      "num_cores": 32,
+      "clock_speed": 3700
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 18,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-5-3500",
+      "family": "Ryzen 5",
+      "model": "3500",
+      "num_cores": 6,
+      "clock_speed": 3600
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 19,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-3-3200g",
+      "family": "Ryzen 3",
+      "model": "3200g",
+      "num_cores": 4,
+      "clock_speed": 3600
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 20,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-9-5990x",
+      "family": "Ryzen 9",
+      "model": "5990x",
+      "num_cores": 64,
+      "clock_speed": 5300
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 21,
+    "fields": {
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i9-11900k",
+      "family": "Core i9",
+      "model": "11900k",
+      "num_cores": 8,
+      "clock_speed": 5300
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 22,
+    "fields": {
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i7-11700k",
+      "family": "Core i7",
+      "model": "11700k",
+      "num_cores": 8,
       "clock_speed": 4900
     }
   }

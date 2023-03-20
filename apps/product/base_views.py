@@ -46,6 +46,7 @@ class BaseProductListView(ListView):
                     f"{field_name}__lte": filter_value_max,
                 })
 
+        self.queryset = queryset
         return queryset
 
 

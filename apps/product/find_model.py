@@ -9,9 +9,7 @@ from django.apps import apps
 
 PRODUCT_MODELS = settings.PRODUCT_MODELS
 
-COMPARISON_MODELS = settings.COMPARISON_MODELS
-
-product_models = [apps.get_model(model_name) for model_name in COMPARISON_MODELS]
+product_models = [apps.get_model(model_name) for model_name in PRODUCT_MODELS]
 
 
 def find_model(request):
@@ -29,7 +27,7 @@ def find_model(request):
     matches = [[model, find_match(query, slug)] for model, slug in slugs.items()]
 
     try:
-        matches.sort(key=lambda x: x[1][1], reverse=True)
+        matches.sort(key=lambda x: x[1][1] if x[1] else [], reverse=True)
         model = matches[0][0]
         category_slug = model.objects.first().category.slug
         url = reverse(f'product:{category_slug}')
@@ -39,6 +37,8 @@ def find_model(request):
     except IndexError:
         messages.warning(request, 'Похоже, вы ввели только бренд. '
                                   'Пожалуйста, уточните категорию вручную.')
+    except TypeError:
+        messages.warning(request, 'Скорее всего, такого товара не существует в нашей базе.')
 
         return redirect(reverse('index:index'))
 

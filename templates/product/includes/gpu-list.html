@@ -2,135 +2,139 @@
 
 
 {% block content %}
+    {% if products %}
 
-    <div class="container">
-        <div class="product-list">
-            {% for product in products %}
-                <div class="product">
-                    <div class="product-name">{{ product }}</div>
-                    {% include 'product/includes/add-to-comparison-button.html' %}
-                </div>
-            {% endfor %}
+        <div class="container">
+            <div class="product-list">
+                {% for product in products %}
+                    <div class="product">
+                        <div class="product-name">{{ product }}</div>
+                        {% include 'product/includes/add-to-comparison-button.html' %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="filter">
+                <form>
+                    <fieldset>
+                        <legend>Фильтр</legend>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="0-50">
+                                До 50 рублей
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="50-100">
+                                От 50 до 100 рублей
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="100-500">
+                                От 100 до 500 рублей
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Фильтр</legend>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="0-50">
+                                До 50 рублей
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="50-100">
+                                От 50 до 100 рублей
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="100-500">
+                                От 100 до 500 рублей
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Фильтр</legend>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="0-50">
+                                До 50 рублей
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="50-100">
+                                От 50 до 100 рублей
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="100-500">
+                                От 100 до 500 рублей
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Фильтр</legend>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="0-50">
+                                До 50 рублей
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="50-100">
+                                От 50 до 100 рублей
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="100-500">
+                                От 100 до 500 рублей
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Фильтр</legend>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="0-50">
+                                До 50 рублей
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="50-100">
+                                От 50 до 100 рублей
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="price" value="100-500">
+                                От 100 до 500 рублей
+                            </label>
+                        </div>
+                    </fieldset>
+
+
+                    <button type="submit">Применить</button>
+
+                </form>
+
+            </div>
+
         </div>
-
-        <div class="filter">
-            <form>
-                <fieldset>
-                    <legend>Фильтр</legend>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="0-50">
-                            До 50 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="50-100">
-                            От 50 до 100 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="100-500">
-                            От 100 до 500 рублей
-                        </label>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Фильтр</legend>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="0-50">
-                            До 50 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="50-100">
-                            От 50 до 100 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="100-500">
-                            От 100 до 500 рублей
-                        </label>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Фильтр</legend>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="0-50">
-                            До 50 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="50-100">
-                            От 50 до 100 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="100-500">
-                            От 100 до 500 рублей
-                        </label>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Фильтр</legend>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="0-50">
-                            До 50 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="50-100">
-                            От 50 до 100 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="100-500">
-                            От 100 до 500 рублей
-                        </label>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Фильтр</legend>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="0-50">
-                            До 50 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="50-100">
-                            От 50 до 100 рублей
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="checkbox" name="price" value="100-500">
-                            От 100 до 500 рублей
-                        </label>
-                    </div>
-                </fieldset>
-
-
-                <button type="submit">Применить</button>
-
-            </form>
-
-        </div>
-
-    </div>
+    {% else %}
+        {% include 'product/includes/empty-products.html' %}
+    {% endif %}
 
 {% endblock %}
