@@ -1,4 +1,4 @@
-{% extends 'comparison/includes/base-comparation.html' %}
+{% extends 'comparison/base-comparation.html' %}
 {% load static %}
 
 
@@ -11,7 +11,7 @@
             <tr>
                 {% for product in comparison_list %}
                     <td>
-                        <a href="#">Удалить</a><br>
+                        {% include 'comparison/includes/remove-from-comparison-button.html' %}
                         <strong>{{ product }}</strong>
                     </td>
                 {% endfor %}
