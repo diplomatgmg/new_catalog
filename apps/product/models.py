@@ -82,11 +82,10 @@ class GPUModel(BaseProductModel):
                               help_text='Пример: GeForce RTX')
     model = models.CharField(max_length=50, verbose_name='Модель',
                              help_text='Пример: 3080')
-    base_clock_speed = models.DecimalField(max_digits=4, decimal_places=2, verbose_name='Базовая тактовая частота',
-                                           help_text='Введите базовую тактовую частоту видеокарты в GHz')
-    boost_clock_speed = models.DecimalField(max_digits=4, decimal_places=2,
-                                            verbose_name='Максимальная тактовая частота',
-                                            help_text='Введите максимальную тактовую частоту видеокарты в GHz')
+    base_clock_speed = models.PositiveIntegerField(verbose_name='Базовая тактовая частота',
+                                                   help_text='Введите базовую тактовую частоту видеокарты в GHz')
+    boost_clock_speed = models.PositiveIntegerField(verbose_name='Максимальная тактовая частота',
+                                                    help_text='Введите максимальную тактовую частоту видеокарты в GHz')
 
     @staticmethod
     def get_comparison_model():

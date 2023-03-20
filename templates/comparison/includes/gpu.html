@@ -1,67 +1,56 @@
-{% extends 'base.html' %}
+{% extends 'comparison/includes/base-comparation.html' %}
 {% load static %}
 
-{% block style %}
-    <link rel="stylesheet" href="{% static 'css/compare.css' %}">
-{% endblock %}
+
 
 {% block content %}
 
     <table>
         <tbody>
-        <tr>
-            <td>
-                НазваниеПроцессора1
-            </td>
-            <td>
-                НазваниеПроцессора2
-            </td>
-            <td>
-                НазваниеПроцессора3
-            </td>
-            <td>
-                НазваниеПроцессора1
-            </td>
-            <td>
-                НазваниеПроцессора2
-            </td>
-            <td>
-                НазваниеПроцессора3
-            </td>
-        </tr>
-        <tr>
-            <td colspan="6">Семейство процессора</td>
-        </tr>
-        <tr>
-            <td>Ryzen 9</td>
-            <td>Ryzen 9</td>
-            <td>Ryzen 9</td>
-            <td>Ryzen 7</td>
-            <td>Ryzen 7</td>
-            <td>Ryzen 7</td>
-        </tr>
-        <tr>
-            <td colspan="6">Модель процессора</td>
-        </tr>
-        <tr>
-            <td>5900x</td>
-            <td>5900x</td>
-            <td>5900x</td>
-            <td>5800x</td>
-            <td>5800x</td>
-            <td>5800x</td>
-        </tr>
-        <tr>
-            <td colspan="6">Количество ядер</td>
-        </tr>
-        <tr>
-            <td>12</td>
-            <td>12</td>
-            <td>12</td>
-            <td>8</td>
-            <td>8</td>
-            <td>8</td>
-        </tr>
+        {% with colspan=comparison_list|length %}
+            <tr>
+                {% for product in comparison_list %}
+                    <td>
+                        <a href="#">Удалить</a><br>
+                        <strong>{{ product }}</strong>
+                    </td>
+                {% endfor %}
+
+
+            </tr>
+            <tr>
+                <td colspan="{{ colspan }}">Семейство</td>
+            </tr>
+            <tr>
+                {% for product in comparison_list %}
+                    <td>{{ product.family }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td colspan="{{ colspan }}">Модель</td>
+            </tr>
+            <tr>
+                {% for product in comparison_list %}
+                    <td>{{ product.model }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td colspan="{{ colspan }}">Базовая тактовая</td>
+            </tr>
+            <tr>
+                {% for product in comparison_list %}
+                    <td>{{ product.base_clock_speed }} МГц</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td colspan="{{ colspan }}">Максимальная тактовая частота</td>
+            </tr>
+            <tr>
+                {% for product in comparison_list %}
+                    <td>{{ product.boost_clock_speed }} МГц</td>
+                {% endfor %}
+            </tr>
+        {% endwith %}
         </tbody>
     </table>
 

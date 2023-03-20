@@ -1,9 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'comparison/includes/base-comparation.html' %}
 {% load static %}
 
-{% block style %}
-    <link rel="stylesheet" href="{% static 'css/compare.css' %}">
-{% endblock %}
+
 
 {% block content %}
 
@@ -42,6 +40,14 @@
             <tr>
                 {% for product in comparison_list %}
                     <td>{{ product.num_cores }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td colspan="{{ colspan }}">Частота ядра</td>
+            </tr>
+            <tr>
+                {% for product in comparison_list %}
+                    <td>{{ product.clock_speed }} МГц</td>
                 {% endfor %}
             </tr>
         {% endwith %}
