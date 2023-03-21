@@ -41,12 +41,20 @@
                             </label>
                         </div>
                     {% endfor %}
+                    {% for brand in disabled_brands %}
+                        <div>
+                            <label>
+                                <input type="checkbox" name="brand" value="{{ brand }}" disabled>
+                                {{ brand }}
+                            </label>
+                        </div>
+                    {% endfor %}
 
                 </fieldset>
 
                 <fieldset>
                     <legend>Семейство</legend>
-                    <input type="text" id="search_family" placeholder="Поиск...">
+                    <label for="search_family"></label><input type="text" id="search_family" placeholder="Поиск...">
                     {% for family in family_search_list %}
                         <div>
                             <label>
@@ -60,7 +68,7 @@
 
                 <fieldset>
                     <legend>Модель</legend>
-                    <input type="text" id="search_model" placeholder="Поиск...">
+                    <label for="search_model"></label><input type="text" id="search_model" placeholder="Поиск...">
                     {% for model in model_search_list %}
                         <div>
                             <label>
@@ -75,9 +83,11 @@
                 <fieldset>
                     <legend>Количество ядер</legend>
                     <div class="filter-interval">
-                        <label>От <input type="number" name="min_num_cores" placeholder="{{ num_cores|min }} ядер"
+                        <label>От <input type="number" name="min_num_cores"
+                                         placeholder="{{ num_cores_min|default:0 }} ядер"
                                          value="{{ request.GET.min_num_cores }}"></label>
-                        <label>До <input type="number" name="max_num_cores" placeholder="{{ num_cores|max }} ядер"
+                        <label>До <input type="number" name="max_num_cores"
+                                         placeholder="{{ num_cores_max|default:0 }} ядер"
                                          value="{{ request.GET.max_num_cores }}"></label>
                     </div>
                 </fieldset>
@@ -87,10 +97,10 @@
                     <legend>Частота ядра</legend>
                     <div class="filter-interval">
                         <label>От <input type="number" name="min_base_clock"
-                                         placeholder="{{ base_clock|min }} МГц"
+                                         placeholder="{{ base_clock_min|default:0 }} МГц"
                                          value="{{ request.GET.min_base_clock }}"></label>
                         <label>До <input type="number" name="max_base_clock"
-                                         placeholder="{{ base_clock|max }} МГц"
+                                         placeholder="{{ base_clock_max|default:0 }} МГц"
                                          value="{{ request.GET.max_base_clock }}"></label>
                     </div>
                 </fieldset>

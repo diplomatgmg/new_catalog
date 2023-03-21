@@ -26,17 +26,10 @@
             </li>
             <li>
                 <a href="#">Сравнение</a>
-                {% if request.user.is_authenticated %}
-                    {% with comparison_categories=request.user|get_comparison_categories %}
-                        <ul>
-                            {% for model, product in comparison_categories %}
-                                <li><a href="{{ model.get_absolute_url }}">{{ product.category.name }}</a></li>
-                            {% empty %}
-                                <li>Пусто</li>
-                            {% endfor %}
-                        </ul>
-                    {% endwith %}
-                {% endif %}
+                <ul>
+                    <li><a href="{% url 'comparison:cpu' %}">Процессоры</a></li>
+                    <li><a href="{% url 'comparison:gpu' %}">Видеокарты</a></li>
+                </ul>
 
             </li>
         </ul>

@@ -1,4 +1,4 @@
-{% extends 'comparison/base-comparation.html' %}
+{% extends 'comparison/base-comparison.html' %}
 {% load static %}
 
 
@@ -39,7 +39,7 @@
             </tr>
             <tr>
                 {% for product in comparison_list %}
-                    <td>{{ product.base_clock_speed }} МГц</td>
+                    <td>{{ product.base_clock }} МГц</td>
                 {% endfor %}
             </tr>
             <tr>
@@ -47,7 +47,7 @@
             </tr>
             <tr>
                 {% for product in comparison_list %}
-                    <td>{{ product.boost_clock_speed }} МГц</td>
+                    <td>{{ product.boost_clock }} МГц</td>
                 {% endfor %}
             </tr>
         {% endwith %}

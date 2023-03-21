@@ -41,6 +41,14 @@
                             </label>
                         </div>
                     {% endfor %}
+                    {% for brand in disabled_brands %}
+                        <div>
+                            <label>
+                                <input type="checkbox" name="brand" value="{{ brand }}" disabled>
+                                {{ brand }}
+                            </label>
+                        </div>
+                    {% endfor %}
                 </fieldset>
 
                 <fieldset>
