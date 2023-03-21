@@ -1,5 +1,7 @@
 from django.views.generic import ListView
 
+from apps.product.models import Brand
+
 
 class BaseProductListView(ListView):
     template_name = 'product/product-list.html'
@@ -49,4 +51,11 @@ class BaseProductListView(ListView):
         self.queryset = queryset
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['brands'] = self.get_brand_names()
+        return context
 
+    def get_brand_names(self):
+        model_brands = set(self.model.objects.values_list('brand', flat=True))
+        return [brand.name for brand in Brand.objects.filter(id__in=model_brands).order_by('name')]

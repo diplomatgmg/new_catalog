@@ -56,7 +56,7 @@ class CPUModel(BaseProductModel):
                              help_text='Пример: 5900x')
     num_cores = models.PositiveIntegerField(verbose_name='Количество ядер',
                                             help_text='Введите количество ядер процессора')
-    clock_speed = models.PositiveIntegerField(verbose_name='Тактовая частота',
+    base_clock = models.PositiveIntegerField(verbose_name='Тактовая частота',
                                               help_text='Введите тактовую частоту процессора в MHz')
 
     @staticmethod
@@ -82,10 +82,10 @@ class GPUModel(BaseProductModel):
                               help_text='Пример: GeForce RTX')
     model = models.CharField(max_length=50, verbose_name='Модель',
                              help_text='Пример: 3080')
-    base_clock_speed = models.PositiveIntegerField(verbose_name='Базовая тактовая частота',
-                                                   help_text='Введите базовую тактовую частоту видеокарты в GHz')
-    boost_clock_speed = models.PositiveIntegerField(verbose_name='Максимальная тактовая частота',
-                                                    help_text='Введите максимальную тактовую частоту видеокарты в GHz')
+    base_clock = models.PositiveIntegerField(verbose_name='Базовая тактовая частота',
+                                        help_text='Введите базовую тактовую частоту видеокарты в GHz')
+    boost_clock = models.PositiveIntegerField(verbose_name='Максимальная тактовая частота',
+                                              help_text='Введите максимальную тактовую частоту видеокарты в GHz')
 
     @staticmethod
     def get_comparison_model():

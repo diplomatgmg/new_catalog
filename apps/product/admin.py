@@ -5,7 +5,7 @@ from apps.product.models import Brand, Category, CPUModel, GPUModel
 
 @admin.register(Brand)
 class BrandModelAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'id')
 
 
 @admin.register(Category)

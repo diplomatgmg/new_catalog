@@ -480,3 +480,16 @@ button[type="submit"]:hover {
 }
 
 
+/* Стили для поля ввода поиска */
+#searchInput {
+    align-self: center;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 16px;
+    margin-top: 10px;
+}
+
+

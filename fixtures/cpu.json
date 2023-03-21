@@ -9,7 +9,7 @@
       "family": "Ryzen 9",
       "model": "5950x",
       "num_cores": 16,
-      "clock_speed": 4900
+      "base_clock": 4900
     }
   },
   {
@@ -22,7 +22,7 @@
       "family": "Ryzen 7",
       "model": "5800x",
       "num_cores": 8,
-      "clock_speed": 4700
+      "base_clock": 4700
     }
   },
   {
@@ -35,7 +35,7 @@
       "family": "Ryzen 5",
       "model": "5600x",
       "num_cores": 6,
-      "clock_speed": 4600
+      "base_clock": 4600
     }
   },
   {
@@ -48,7 +48,7 @@
       "family": "Ryzen 9 Pro",
       "model": "5950x",
       "num_cores": 16,
-      "clock_speed": 4900
+      "base_clock": 4900
     }
   },
   {
@@ -61,7 +61,7 @@
       "family": "Ryzen 7 Pro",
       "model": "5850x",
       "num_cores": 12,
-      "clock_speed": 4700
+      "base_clock": 4700
     }
   },
   {
@@ -74,7 +74,7 @@
       "family": "Ryzen 5 Pro",
       "model": "5650x",
       "num_cores": 6,
-      "clock_speed": 4600
+      "base_clock": 4600
     }
   },
   {
@@ -87,7 +87,7 @@
       "family": "Athlon Gold",
       "model": "3140u",
       "num_cores": 2,
-      "clock_speed": 2400
+      "base_clock": 2400
     }
   },
   {
@@ -100,7 +100,7 @@
       "family": "Athlon Silver",
       "model": "3050u",
       "num_cores": 2,
-      "clock_speed": 2300
+      "base_clock": 2300
     }
   },
   {
@@ -113,7 +113,7 @@
       "family": "Ryzen Threadripper Pro",
       "model": "3995wx",
       "num_cores": 64,
-      "clock_speed": 2900
+      "base_clock": 2900
     }
   },
   {
@@ -126,7 +126,7 @@
       "family": "Epyc",
       "model": "7763",
       "num_cores": 64,
-      "clock_speed": 2800
+      "base_clock": 2800
     }
   },
   {
@@ -139,7 +139,7 @@
       "family": "Ryzen Threadripper",
       "model": "3970x",
       "num_cores": 32,
-      "clock_speed": 3700
+      "base_clock": 3700
     }
   },
   {
@@ -152,7 +152,7 @@
       "family": "Ryzen 5",
       "model": "3500",
       "num_cores": 6,
-      "clock_speed": 3600
+      "base_clock": 3600
     }
   },
   {
@@ -165,7 +165,7 @@
       "family": "Ryzen 3",
       "model": "3200g",
       "num_cores": 4,
-      "clock_speed": 3600
+      "base_clock": 3600
     }
   },
   {
@@ -178,7 +178,7 @@
       "family": "Ryzen 9",
       "model": "5990x",
       "num_cores": 64,
-      "clock_speed": 5300
+      "base_clock": 5300
     }
   },
   {
@@ -191,7 +191,7 @@
       "family": "Core i9",
       "model": "11900k",
       "num_cores": 8,
-      "clock_speed": 5300
+      "base_clock": 5300
     }
   },
   {
@@ -204,7 +204,7 @@
       "family": "Core i7",
       "model": "11700k",
       "num_cores": 8,
-      "clock_speed": 4900
+      "base_clock": 4900
     }
   }
 ]
