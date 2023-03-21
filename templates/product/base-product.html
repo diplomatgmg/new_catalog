@@ -7,5 +7,24 @@
 {% block scripts %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'js/compare-add.js' %}"></script>
-    <script src="{% static 'js/filter-search.js' %}"></script>
+    <script>
+        {% for field in search_fields %}
+            const checkboxes{{ field.capitalize }} = document.querySelectorAll('.{{ field }}');
+            const searchInput{{ field.capitalize }} = document.querySelector('#search_{{ field }}');
+            dynamicSearch(checkboxes{{ field.capitalize }}, searchInput{{ field.capitalize }});
+        {% endfor %}
+
+        function dynamicSearch(checkboxes, searchInput) {
+            function filterItems() {
+                const query = searchInput.value.toLowerCase();
+                checkboxes.forEach((checkbox) => {
+                    const label = checkbox.parentElement.textContent.toLowerCase();
+                    const match = label.includes(query);
+                    checkbox.closest('div').style.display = match ? 'block' : 'none';
+                });
+            }
+
+            searchInput.addEventListener('input', filterItems);
+        }
+    </script>
 {% endblock %}

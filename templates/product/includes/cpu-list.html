@@ -41,18 +41,32 @@
                             </label>
                         </div>
                     {% endfor %}
+
                 </fieldset>
 
                 <fieldset>
                     <legend>Семейство</legend>
-                    <label for="search"></label>
-                    <input type="text" id="search" placeholder="Поиск...">
-                    {% for family in family_list %}
+                    <input type="text" id="search_family" placeholder="Поиск...">
+                    {% for family in family_search_list %}
                         <div>
                             <label>
                                 <input type="checkbox" class="family" name="family" value="{{ family }}"
                                        {% if family in request|get_list:'family' %}checked{% endif %}>
                                 {{ family }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </fieldset>
+
+                <fieldset>
+                    <legend>Модель</legend>
+                    <input type="text" id="search_model" placeholder="Поиск...">
+                    {% for model in model_search_list %}
+                        <div>
+                            <label>
+                                <input type="checkbox" class="model" name="model" value="{{ model }}"
+                                       {% if model in request|get_list:'model' %}checked{% endif %}>
+                                {{ model }}
                             </label>
                         </div>
                     {% endfor %}
@@ -89,5 +103,4 @@
     </div>
 
 {% endblock %}
-
 
