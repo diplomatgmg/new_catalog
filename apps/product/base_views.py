@@ -6,8 +6,9 @@ from django.db.models import Min, Max
 class BaseProductListView(ListView):
     template_name = 'product/product-list.html'
     context_object_name = 'products'
-    range_filter_fields = {}
+    range_filter_fields = ()
     search_filter_fields = ()
+    list_display_fields = {}
 
     def get_queryset(self):
         query = self.request.GET.get('q')
@@ -28,8 +29,8 @@ class BaseProductListView(ListView):
             queryset = queryset.filter(brand__name__in=brand)
 
         for field_name in self.range_filter_fields:
-            filter_value_min = self.request.GET.get(f'min_{field_name}')
-            filter_value_max = self.request.GET.get(f'max_{field_name}')
+            filter_value_min = self.request.GET.get(f'{field_name}_min')
+            filter_value_max = self.request.GET.get(f'{field_name}_max')
             filter_kwargs = {}
             if filter_value_min:
                 filter_kwargs[f'{field_name}__gte'] = filter_value_min
@@ -39,41 +40,32 @@ class BaseProductListView(ListView):
                 queryset = queryset.filter(**filter_kwargs)
 
         for field in self.search_filter_fields:
-            value = self.request.GET.getlist(field)
-            if value:
-                queryset = queryset.filter(**{f'{field}__in': value})
+            if field not in ('brand',):
+                value = self.request.GET.getlist(field)
+                if value:
+                    queryset = queryset.filter(**{f'{field}__in': value})
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['disabled_brands'] = []
-        context['brands'] = []
+        context['range_filter_fields'] = self.range_filter_fields
+        context['search_filter_fields'] = self.search_filter_fields
+        context['list_display_fields'] = self.list_display_fields
 
-        all_brands = set(self.model.objects.values_list('brand__name', flat=True))
-        for brand in all_brands:
-            if brand in set(product.brand.name for product in self.object_list):
-                context['brands'].append(brand)
-            else:
-                context['disabled_brands'].append(brand)
-
-        # context['brands'] = list(Brand.objects.filter(id__in=model_brands).order_by('name').values_list('name', flat=True))
-        #
-        # Для обработки поиска js
-        context['search_fields'] = self.search_filter_fields
-
+        context['context'] = {}
+        context['context']['brand'] = sorted(set(product.brand.name for product in self.object_list))
         if self.object_list.exists():
             for field_name in self.search_filter_fields:
-                context[f'{field_name}_search_list'] = sorted(
-                    set(getattr(product, field_name) for product in self.object_list))
+                if field_name not in ('brand',):
+                    context['context'][field_name] = sorted(
+                        set(getattr(product, field_name) for product in self.object_list))
 
             for field_name in self.range_filter_fields:
-                context[f'{field_name}_min'] = min(getattr(product, field_name) for product in self.object_list)
-                context[f'{field_name}_max'] = max(getattr(product, field_name) for product in self.object_list)
-
-        #
-        # for field in self.range_filter_fields:
-        #     context[field] = self.queryset.values_list(field, flat=True)
+                context['context'][f'{field_name}_min'] = min(
+                    getattr(product, field_name) for product in self.object_list)
+                context['context'][f'{field_name}_max'] = max(
+                    getattr(product, field_name) for product in self.object_list)
 
         return context

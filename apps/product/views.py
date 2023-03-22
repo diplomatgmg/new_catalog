@@ -11,9 +11,17 @@ class CPUListView(BaseProductListView):
         'base_clock',
     )
 
-    search_filter_fields = (
+    search_filter_fields = [
+        'brand',
         'family',
         'model',
+    ]
+
+    list_display_fields = (
+        ('brand', 'Бренд', ''),
+        ('family', 'Семейство', ''),
+        ('num_cores', 'Количество ядер', 'ядер'),
+        ('base_clock', 'Базовая частота', 'МГц'),
     )
 
 

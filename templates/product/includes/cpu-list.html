@@ -9,8 +9,6 @@
             {% for product in products %}
                 <div class="product">
                     <div class="product-name">{{ product }}</div>
-                    <div class="product-name">Ядер: {{ product.num_cores }}</div>
-                    <div class="product-name">Частота: {{ product.base_clock }}</div>
                     <div class="product-compare">
                         {% include 'product/includes/add-to-comparison-button.html' %}
                     </div>
@@ -19,95 +17,49 @@
         </div>
 
         <div class="filter">
-            <form method="get" action="{% url 'product:cpu' %}">
-                <fieldset>
-                    <legend>Цена</legend>
-                    <div class="filter-interval">
-                        <label>От <input type="number" name="min_price" disabled
-                                         value="{{ request.GET.min_price }}"></label>
-                        <label>До <input type="number" name="max_price" disabled
-                                         value="{{ request.GET.max_price }}"></label>
-                    </div>
-                </fieldset>
+            <form method="get" action="{{ request.path }}">
 
-                <fieldset>
-                    <legend>Производитель</legend>
-                    {% for brand in brands %}
-                        <div>
-                            <label>
-                                <input type="checkbox" name="brand" value="{{ brand }}"
-                                       {% if brand in request|get_list:'brand' %}checked{% endif %}>
-                                {{ brand }}
-                            </label>
+                {% for field_key, field_name, field_value in list_display_fields %}
+                    <fieldset>
+                        <legend>{{ field_name }}</legend>
+                        {% if field_key in search_filter_fields %}
+                            {% with names=context|get:field_key %}
+                                {% if names|length > 15 %}
+                                    <label for="search_{{ field_key }}"></label>
+                                    <input type="text" id="search_{{ field_key }}" placeholder="Поиск...">
+                                {% endif %}
+                                <div class="search-list">
+                                {% for name in names %}
+                                    <div>
+                                        <label>
+                                            <input type="checkbox" class="{{ field_key }}" name="{{ field_key }}"
+                                                   value="{{ name }}"
+                                                   {% if name in request|get_list:field_key %}checked{% endif %}>
+                                            {{ name }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            {% endwith %}
                         </div>
-                    {% endfor %}
-                    {% for brand in disabled_brands %}
-                        <div>
-                            <label>
-                                <input type="checkbox" name="brand" value="{{ brand }}" disabled>
-                                {{ brand }}
-                            </label>
-                        </div>
-                    {% endfor %}
 
-                </fieldset>
+                        {% elif field_key in range_filter_fields %}
+                            <div class="filter-interval">
+                                {% with min_value=field_key|add_min_max:'min' %}
+                                    <label>От <input type="number" name="{{ min_value }}"
+                                                     placeholder="{{ context|get:min_value }} {{ field_value }}"
+                                                     value="{{ request.GET|get:min_value }}"></label>
+                                {% endwith %}
 
-                <fieldset>
-                    <legend>Семейство</legend>
-                    <label for="search_family"></label><input type="text" id="search_family" placeholder="Поиск...">
-                    <div class="search-list">
-                        {% for family in family_search_list %}
-                            <div>
-                                <label>
-                                    <input type="checkbox" class="family" name="family" value="{{ family }}"
-                                           {% if family in request|get_list:'family' %}checked{% endif %}>
-                                    {{ family }}
-                                </label>
+                                {% with max_value=field_key|add_min_max:'max' %}
+                                    <label>До <input type="number" name="{{ max_value }}"
+                                                     placeholder="{{ context|get:max_value }} {{ field_value }}"
+                                                     value="{{ request.GET|get:max_value }}"></label>
+                                {% endwith %}
                             </div>
-                        {% endfor %}
-                    </div>
-                </fieldset>
+                        {% endif %}
+                    </fieldset>
+                {% endfor %}
 
-                <fieldset>
-                    <legend>Модель</legend>
-                    <label for="search_model"></label><input type="text" id="search_model" placeholder="Поиск...">
-                    <div class="search-list">
-                        {% for model in model_search_list %}
-                            <div>
-                                <label>
-                                    <input type="checkbox" class="model" name="model" value="{{ model }}"
-                                           {% if model in request|get_list:'model' %}checked{% endif %}>
-                                    {{ model }}
-                                </label>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <legend>Количество ядер</legend>
-                    <div class="filter-interval">
-                        <label>От <input type="number" name="min_num_cores"
-                                         placeholder="{{ num_cores_min|default:0 }} ядер"
-                                         value="{{ request.GET.min_num_cores }}"></label>
-                        <label>До <input type="number" name="max_num_cores"
-                                         placeholder="{{ num_cores_max|default:0 }} ядер"
-                                         value="{{ request.GET.max_num_cores }}"></label>
-                    </div>
-                </fieldset>
-
-
-                <fieldset>
-                    <legend>Частота ядра</legend>
-                    <div class="filter-interval">
-                        <label>От <input type="number" name="min_base_clock"
-                                         placeholder="{{ base_clock_min|default:0 }} МГц"
-                                         value="{{ request.GET.min_base_clock }}"></label>
-                        <label>До <input type="number" name="max_base_clock"
-                                         placeholder="{{ base_clock_max|default:0 }} МГц"
-                                         value="{{ request.GET.max_base_clock }}"></label>
-                    </div>
-                </fieldset>
 
                 <button type="submit">Применить</button>
                 <a href="{{ request.path }}" class="reset">Сбросить</a>
@@ -117,4 +69,34 @@
     </div>
 
 {% endblock %}
+
+
+{% block scripts %}
+    <script>
+        {% for field in search_filter_fields %}
+            {% with names=context|get:field %}
+                {% if names|length > 15 %}
+                    const checkboxes{{ field|capfirst }} = document.querySelectorAll('.{{ field }}');
+                    const searchInput{{ field|capfirst }} = document.querySelector('#search_{{ field }}');
+                    dynamicSearch(checkboxes{{ field|capfirst }}, searchInput{{ field|capfirst }});
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
+
+
+        function dynamicSearch(checkboxes, searchInput) {
+            function filterItems() {
+                const query = searchInput.value.toLowerCase();
+                checkboxes.forEach((checkbox) => {
+                    const label = checkbox.parentElement.textContent.toLowerCase();
+                    const match = label.includes(query);
+                    checkbox.closest('div').style.display = match ? 'block' : 'none';
+                });
+            }
+
+            searchInput.addEventListener('input', filterItems);
+        }
+    </script>
+{% endblock %}
+
 
