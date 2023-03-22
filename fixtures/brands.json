@@ -1,23 +1,23 @@
 [
-  {
+{
     "model": "product.brand",
     "pk": 1,
     "fields": {
-      "name": "AMD"
+        "name": "AMD"
     }
-  },
-  {
+},
+{
     "model": "product.brand",
     "pk": 2,
     "fields": {
-      "name": "Intel"
+        "name": "Intel"
     }
-  },
-  {
+},
+{
     "model": "product.brand",
     "pk": 3,
     "fields": {
-      "name": "NVIDIA"
+        "name": "NVIDIA"
     }
-  }
+}
 ]

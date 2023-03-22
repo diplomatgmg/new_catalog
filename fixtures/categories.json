@@ -1,18 +1,18 @@
 [
-  {
+{
     "model": "product.category",
     "pk": 1,
     "fields": {
-      "name": "Процессоры",
-      "slug": "cpu"
+        "name": "Процессоры",
+        "slug": "cpu"
     }
-  },
-  {
+},
+{
     "model": "product.category",
     "pk": 2,
     "fields": {
-      "name": "Видеокарты",
-      "slug": "gpu"
+        "name": "Видеокарты",
+        "slug": "gpu"
     }
-  }
+}
 ]
