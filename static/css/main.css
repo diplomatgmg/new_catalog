@@ -277,6 +277,13 @@ fieldset {
 }
 
 
+.search-list {
+    height: auto;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+
 header {
     font-family: Arial, sans-serif;
     display: flex;
@@ -491,5 +498,7 @@ button[type="submit"]:hover {
     margin-bottom: 16px;
     margin-top: 10px;
 }
+
+
 
 

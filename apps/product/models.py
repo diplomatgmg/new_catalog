@@ -74,7 +74,7 @@ class CPUModel(BaseProductModel):
         return self.get_full_name()
 
     class Meta:
-        ordering = ('family', 'model')
+        ordering = ('brand', 'family', 'model')
 
 
 class GPUModel(BaseProductModel):

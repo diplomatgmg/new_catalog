@@ -54,9 +54,9 @@
                 <fieldset>
                     <legend>Базовая частота</legend>
                     <div class="filter-interval">
-                        <label>От <input type="number" name="min_base_clock" placeholder="{{ base_clock|min }} МГц"
+                        <label>От <input type="number" name="min_base_clock" placeholder="{{ base_clock_min }} МГц"
                                          value="{{ request.GET.min_base_clock }}"></label>
-                        <label>До <input type="number" name="max_base_clock" placeholder="{{ base_clock|max }} МГц"
+                        <label>До <input type="number" name="max_base_clock" placeholder="{{ base_clock_max }} МГц"
                                          value="{{ request.GET.max_base_clock }}"></label>
                     </div>
                 </fieldset>
@@ -65,10 +65,10 @@
                     <legend>Частота турбобуста</legend>
                     <div class="filter-interval">
                         <label>От <input type="number" name="min_boost_clock"
-                                         placeholder="{{ boost_clock|min }} МГц"
+                                         placeholder="{{ boost_clock_min }} МГц"
                                          value="{{ request.GET.min_boost_clock }}"></label>
                         <label>До <input type="number" name="max_boost_clock"
-                                         placeholder="{{ boost_clock|max }} МГц"
+                                         placeholder="{{ boost_clock_max }} МГц"
                                          value="{{ request.GET.max_boost_clock }}"></label>
                     </div>
                 </fieldset>

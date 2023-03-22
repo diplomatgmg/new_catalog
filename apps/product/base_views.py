@@ -51,13 +51,12 @@ class BaseProductListView(ListView):
         context['disabled_brands'] = []
         context['brands'] = []
 
-        for brand in set(self.model.objects.values_list('brand__name', flat=True)):
+        all_brands = set(self.model.objects.values_list('brand__name', flat=True))
+        for brand in all_brands:
             if brand in set(product.brand.name for product in self.object_list):
                 context['brands'].append(brand)
             else:
                 context['disabled_brands'].append(brand)
-
-
 
         # context['brands'] = list(Brand.objects.filter(id__in=model_brands).order_by('name').values_list('name', flat=True))
         #
@@ -66,7 +65,8 @@ class BaseProductListView(ListView):
 
         if self.object_list.exists():
             for field_name in self.search_filter_fields:
-                context[f'{field_name}_search_list'] = sorted(set(getattr(product, field_name) for product in self.object_list))
+                context[f'{field_name}_search_list'] = sorted(
+                    set(getattr(product, field_name) for product in self.object_list))
 
             for field_name in self.range_filter_fields:
                 context[f'{field_name}_min'] = min(getattr(product, field_name) for product in self.object_list)
