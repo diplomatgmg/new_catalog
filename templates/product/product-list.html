@@ -1,29 +1,104 @@
-{% extends 'base.html' %}
-
+{% extends  'base.html' %}
+{% load static %}
+{% load product_extras %}
 
 {% block content %}
-    <div class="product-list">
-  <ul>
-    <li>
-      <h3>Название товара</h3>
-      <span class="price">Цена</span>
-      <a href="#" class="compare-link">Сравнить</a>
-    </li>
-    <li>
-      <h3>Название товара</h3>
-      <span class="price">Цена</span>
-      <a href="#" class="compare-link">Сравнить</a>
-    </li>
-    <li>
-      <h3>Название товара</h3>
-      <span class="price">Цена</span>
-      <a href="#" class="compare-link">Сравнить</a>
-    </li>
-    <li>
-      <h3>Название товара</h3>
-      <span class="price">Цена</span>
-      <a href="#" class="compare-link">Сравнить</a>
-    </li>
-  </ul>
-</div>
+
+    <div class="container">
+        <div class="product-list">
+            {% for product in products %}
+                <div class="product">
+                    <div class="product-name">{{ product }}</div>
+                    <div class="product-compare">
+                        <button class="compare-button" data-model-name="{{ product.slug }}">К сравнению</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="filter">
+            <form method="get" action="{{ request.path }}">
+
+                {% for field_key, field_name, field_value in list_display_fields %}
+                    <fieldset>
+                        <legend>{{ field_name }}</legend>
+                        {% if field_key in search_filter_fields %}
+                            {% with names=context|get:field_key %}
+                                {% if names|length > 15 %}
+                                    <label for="search_{{ field_key }}"></label>
+                                    <input type="text" id="search_{{ field_key }}" placeholder="Поиск...">
+                                {% endif %}
+                                <div class="search-list">
+                                {% for name in names %}
+                                    <div>
+                                        <label>
+                                            <input type="checkbox" class="{{ field_key }}" name="{{ field_key }}"
+                                                   value="{{ name }}"
+                                                   {% if name in request.GET|getlist:field_key %}checked{% endif %}>
+                                            {{ name }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            {% endwith %}
+                        </div>
+
+                        {% elif field_key in range_filter_fields %}
+                            <div class="filter-interval">
+                                {% with min_value=field_key|add_min_max:'min' %}
+                                    <label>От <input type="number" name="{{ min_value }}"
+                                                     placeholder="{{ context|get:min_value }} {{ field_value }}"
+                                                     value="{{ request.GET|get:min_value }}"></label>
+                                {% endwith %}
+
+                                {% with max_value=field_key|add_min_max:'max' %}
+                                    <label>До <input type="number" name="{{ max_value }}"
+                                                     placeholder="{{ context|get:max_value }} {{ field_value }}"
+                                                     value="{{ request.GET|get:max_value }}"></label>
+                                {% endwith %}
+                            </div>
+                        {% endif %}
+                    </fieldset>
+                {% endfor %}
+
+
+                <button type="submit">Применить</button>
+                <a href="{{ request.path }}" class="reset">Сбросить</a>
+
+            </form>
+        </div>
+    </div>
+
 {% endblock %}
+
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/compare-add.js' %}"></script>
+    <script>
+        {% for field in search_filter_fields %}
+            {% with names=context|get:field %}
+                {% if names|length > 15 %}
+                    const checkboxes{{ field|capfirst }} = document.querySelectorAll('.{{ field }}');
+                    const searchInput{{ field|capfirst }} = document.querySelector('#search_{{ field }}');
+                    dynamicSearch(checkboxes{{ field|capfirst }}, searchInput{{ field|capfirst }});
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
+
+
+        function dynamicSearch(checkboxes, searchInput) {
+            function filterItems() {
+                const query = searchInput.value.toLowerCase();
+                checkboxes.forEach((checkbox) => {
+                    const label = checkbox.parentElement.textContent.toLowerCase();
+                    const match = label.includes(query);
+                    checkbox.closest('div').style.display = match ? 'block' : 'none';
+                });
+            }
+
+            searchInput.addEventListener('input', filterItems);
+        }
+    </script>
+{% endblock %}
+
+

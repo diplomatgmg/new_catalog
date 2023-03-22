@@ -4,11 +4,11 @@ register = template.Library()
 
 
 @register.filter
-def get_list(request, key):
+def getlist(request_get, key):
     """
     Возвращает список полученного из request_get по ключу key
     """
-    return request.GET.getlist(key)
+    return request_get.getlist(key)
 
 
 @register.filter(name='min')

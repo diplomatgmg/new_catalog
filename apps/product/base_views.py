@@ -1,6 +1,4 @@
 from django.views.generic import ListView
-from apps.product.models import Brand
-from django.db.models import Min, Max
 
 
 class BaseProductListView(ListView):

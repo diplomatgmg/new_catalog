@@ -3,7 +3,6 @@ from apps.product.models import CPUModel, GPUModel
 
 
 class CPUListView(BaseProductListView):
-    template_name = 'product/includes/cpu-list.html'
     model = CPUModel
     # Поля для фильтрации диапазона
     range_filter_fields = (
@@ -11,11 +10,11 @@ class CPUListView(BaseProductListView):
         'base_clock',
     )
 
-    search_filter_fields = [
+    search_filter_fields = (
         'brand',
         'family',
         'model',
-    ]
+    )
 
     list_display_fields = (
         ('brand', 'Бренд', ''),
@@ -26,9 +25,22 @@ class CPUListView(BaseProductListView):
 
 
 class GPUListView(BaseProductListView):
-    template_name = 'product/includes/gpu-list.html'
     model = GPUModel
     range_filter_fields = (
         'base_clock',
         'boost_clock',
+    )
+
+    search_filter_fields = (
+        'brand',
+        'family',
+        'model',
+    )
+
+    list_display_fields = (
+        ('brand', 'Бренд', ''),
+        ('family', 'Семейство', ''),
+        ('model', 'Семейство', ''),
+        ('base_clock', 'Базовая частота', 'МГц'),
+        ('boost_clock', 'Базовая частота', 'МГц'),
     )
