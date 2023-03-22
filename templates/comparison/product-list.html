@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load product_extras %}
+{% load static %}
+
+
+{% block content %}
+    <table>
+        <tbody>
+        <tr>
+            {% for product in comparison_list %}
+                <td>
+                    <div class="product-compare" style="margin-bottom: 10px">
+                        <a href="{% url 'comparison:remove' product.slug %}">Удалить</a>
+                    </div>
+                    <strong>{{ product }}</strong>
+                </td>
+            {% endfor %}
+        </tr>
+        {% with colspan=comparison_list|length %}
+            {% for field_key, field_name, field_value in comparison_fields %}
+                <tr>
+                    <td colspan="{{ colspan }}">{{ field_name }}</td>
+                </tr>
+                <tr>
+                    {% for product in comparison_list %}
+                        <td>{{ product|getattr:field_key }} {{ field_value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        {% endwith %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/compare.css' %}">
+{% endblock %}
+
+

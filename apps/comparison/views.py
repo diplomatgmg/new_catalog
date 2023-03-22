@@ -1,11 +1,10 @@
 from django.apps import apps
 from django.conf import settings
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.views.generic import ListView, TemplateView
 
 from apps.comparison.models import CPUComparison, GPUComparison
-from apps.product.models import CPUModel
 
 
 class IndexCompare(TemplateView):
@@ -13,20 +12,39 @@ class IndexCompare(TemplateView):
 
 
 class BaseComparison(ListView):
+    template_name = 'comparison/product-list.html'
     context_object_name = 'comparison_list'
+    comparison_fields = ()
 
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user).first().products.select_related('brand')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comparison_fields'] = self.comparison_fields
+        return context
+
 
 class CPUComparisonListView(BaseComparison):
-    template_name = 'comparison/includes/cpu.html'
     model = CPUComparison
+    comparison_fields = (
+        ('brand', 'Бренд', ''),
+        ('family', 'Семейство', ''),
+        ('model', 'Модель', ''),
+        ('num_cores', 'Ядер', ''),
+        ('base_clock', 'Базовая частота', 'МГц'),
+    )
 
 
 class GPUComparisonListView(BaseComparison):
-    template_name = 'comparison/includes/gpu.html'
     model = GPUComparison
+    comparison_fields = (
+        ('brand', 'Бренд', ''),
+        ('family', 'Семейство', ''),
+        ('model', 'Модель', ''),
+        ('base_clock', 'Базовая частота', 'МГц'),
+        ('boost_clock', 'Базовая частота', 'МГц'),
+    )
 
 
 PRODUCT_MODELS = settings.PRODUCT_MODELS

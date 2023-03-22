@@ -26,6 +26,11 @@ def get(dictionary: dict, key: str) -> str:
     return dictionary.get(key)
 
 
+@register.filter(name='getattr')
+def get_attr(model, attr):
+    return getattr(model, attr)
+
+
 @register.filter
 def add_min_max(field_key, min_max):
     if 'min' == min_max:
