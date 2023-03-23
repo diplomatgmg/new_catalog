@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views.generic import ListView, TemplateView
 
+from apps.comparison.comparison import Comparison
 from apps.comparison.models import CPUComparison, GPUComparison
 
 
@@ -17,11 +18,22 @@ class BaseComparison(ListView):
     comparison_fields = ()
 
     def get_queryset(self):
-        return (
-            self.model.objects.filter(user=self.request.user)
-            .first()
-            .products.select_related("brand")
-        )
+        if self.request.user.is_authenticated:
+            return (
+                self.model.objects.filter(user=self.request.user)
+                .first()
+                .products.select_related("brand")
+            )
+        else:
+            user_comparison_list = self.model.objects.filter(
+                temp_user=self.request.session.session_key
+            )
+            if user_comparison_list.exists():
+                return user_comparison_list.first().products.select_related(
+                    "brand"
+                )
+            else:
+                return []
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -62,18 +74,15 @@ def comparison_add(request, slug):
             {"success": False, "error": "Invalid request method."}
         )
 
-    user = request.user
     for model in product_models:
         product = model.objects.filter(slug=slug)
         if product.exists():
             product = product.last()
             comparison_model = model.get_comparison_model()
-            comparison, created = comparison_model.objects.get_or_create(
-                user=user
-            )
-            comparison.products.add(product)
+            comparison = Comparison(request, comparison_model)
+            comparison.add(product)
+
             return JsonResponse({"success": True})
-    return JsonResponse({"success": False})
 
 
 def comparison_remove(request, slug):

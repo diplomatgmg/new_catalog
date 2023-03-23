@@ -48,11 +48,9 @@ class BaseProductModel(models.Model):
             f"в классе {self.__class__.__name__}"
         )
 
-    def get_comparison_model(self):
-        raise NotImplementedError(
-            f"Не объявлен метод get_full_name "
-            f"в классе {self.__class__.__name__}"
-        )
+    @staticmethod
+    def get_comparison_model():
+        raise NotImplementedError(f"Не объявлен метод get_full_name ")
 
     def save(self, **kwargs):
         full_name = self.get_full_name()
@@ -79,7 +77,8 @@ class CPUModel(BaseProductModel):
         help_text="Введите тактовую частоту процессора в MHz",
     )
 
-    def get_comparison_model(self):
+    @staticmethod
+    def get_comparison_model():
         return CPUComparison
 
     def get_full_name(self):
@@ -105,7 +104,8 @@ class GPUModel(BaseProductModel):
         help_text="Введите максимальную тактовую частоту видеокарты в GHz",
     )
 
-    def get_comparison_model(self):
+    @staticmethod
+    def get_comparison_model():
         return GPUComparison
 
     def get_full_name(self):
