@@ -23,6 +23,11 @@ class CPUListView(BaseProductListView):
         ("base_clock", "Базовая частота", "МГц"),
     )
 
+    brief_list = (
+        ("num_cores", "Ядер"),
+        ("base_clock", "Базовая частота"),
+    )
+
 
 class GPUListView(BaseProductListView):
     model = GPUModel
@@ -43,4 +48,9 @@ class GPUListView(BaseProductListView):
         ("model", "Семейство", ""),
         ("base_clock", "Базовая частота", "МГц"),
         ("boost_clock", "Базовая частота", "МГц"),
+    )
+
+    brief_list = (
+        ("base_clock", "Базовая частота"),
+        ("boost_clock", "Частота турбобуста"),
     )

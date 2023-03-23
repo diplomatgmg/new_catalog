@@ -4,77 +4,91 @@
 
 {% block content %}
 
-    <div class="container">
-        <div class="product-list">
-            {% for product in products %}
-                <div class="product">
-                    <div class="product-name">{{ product }}</div>
-                    <div class="product-compare">
-                        <button class="compare-button" data-model-name="{{ product.slug }}">К сравнению</button>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+	<div class="container">
+		<div class="product-list">
+			{% for product in products %}
+				<div class="product">
+					<div class="product-name">{{ product }}</div>
+					{% for field_key, field_name in brief_list %}
+						<div>
+							{{ field_name }}:
+							{{ product|getattr:field_key }}
+						</div>
+					{% endfor %}
+					<div class="product-compare">
+						<button class="compare-button"
+								data-model-name="{{ product.slug }}">К сравнению
+						</button>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
 
-        <div class="filter">
-            <form method="get" action="{{ request.path }}">
+		<div class="filter">
+			<form method="get" action="{{ request.path }}">
 
-                {% for field_key, field_name, field_value in list_display_fields %}
-                    <fieldset>
-                        <legend>{{ field_name }}</legend>
-                        {% if field_key in search_filter_fields %}
-                            {% with names=context|get:field_key %}
-                                {% if names|length > 15 %}
-                                    <label for="search_{{ field_key }}"></label>
-                                    <input type="text" id="search_{{ field_key }}" placeholder="Поиск...">
-                                {% endif %}
-                                <div class="search-list">
-                                {% for name in names %}
-                                    <div>
-                                        <label>
-                                            <input type="checkbox" class="{{ field_key }}" name="{{ field_key }}"
-                                                   value="{{ name }}"
-                                                   {% if name in request.GET|getlist:field_key %}checked{% endif %}>
-                                            {{ name }}
-                                        </label>
-                                    </div>
-                                {% endfor %}
-                            {% endwith %}
-                        </div>
+				{% for field_key, field_name, field_value in list_display_fields %}
+					<fieldset>
+						<legend>{{ field_name }}</legend>
+						{% if field_key in search_filter_fields %}
+							{% with names=context|get:field_key %}
+								{% if names|length > 15 %}
+									<label for="search_{{ field_key }}"></label>
+									<input type="text"
+										   id="search_{{ field_key }}"
+										   placeholder="Поиск...">
+								{% endif %}
+								<div class="search-list">
+								{% for name in names %}
+									<div>
+										<label>
+											<input type="checkbox"
+												   class="{{ field_key }}"
+												   name="{{ field_key }}"
+												   value="{{ name }}"
+												   {% if name in request.GET|getlist:field_key %}checked{% endif %}>
+											{{ name }}
+										</label>
+									</div>
+								{% endfor %}
+							{% endwith %}
+						</div>
 
-                        {% elif field_key in range_filter_fields %}
-                            <div class="filter-interval">
-                                {% with min_value=field_key|add_min_max:'min' %}
-                                    <label>От <input type="number" name="{{ min_value }}"
-                                                     placeholder="{{ context|get:min_value }} {{ field_value }}"
-                                                     value="{{ request.GET|get:min_value }}"></label>
-                                {% endwith %}
+						{% elif field_key in range_filter_fields %}
+							<div class="filter-interval">
+								{% with min_value=field_key|add_min_max:'min' %}
+									<label>От <input type="number"
+													 name="{{ min_value }}"
+													 placeholder="{{ context|get:min_value }} {{ field_value }}"
+													 value="{{ request.GET|get:min_value }}"></label>
+								{% endwith %}
 
-                                {% with max_value=field_key|add_min_max:'max' %}
-                                    <label>До <input type="number" name="{{ max_value }}"
-                                                     placeholder="{{ context|get:max_value }} {{ field_value }}"
-                                                     value="{{ request.GET|get:max_value }}"></label>
-                                {% endwith %}
-                            </div>
-                        {% endif %}
-                    </fieldset>
-                {% endfor %}
+								{% with max_value=field_key|add_min_max:'max' %}
+									<label>До <input type="number"
+													 name="{{ max_value }}"
+													 placeholder="{{ context|get:max_value }} {{ field_value }}"
+													 value="{{ request.GET|get:max_value }}"></label>
+								{% endwith %}
+							</div>
+						{% endif %}
+					</fieldset>
+				{% endfor %}
 
 
-                <button type="submit">Применить</button>
-                <a href="{{ request.path }}" class="reset">Сбросить</a>
+				<button type="submit">Применить</button>
+				<a href="{{ request.path }}" class="reset">Сбросить</a>
 
-            </form>
-        </div>
-    </div>
+			</form>
+		</div>
+	</div>
 
 {% endblock %}
 
 
 {% block scripts %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'js/compare-add.js' %}"></script>
-    <script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="{% static 'js/compare-add.js' %}"></script>
+	<script>
         {% for field in search_filter_fields %}
             {% with names=context|get:field %}
                 {% if names|length > 15 %}
@@ -98,7 +112,5 @@
 
             searchInput.addEventListener('input', filterItems);
         }
-    </script>
+	</script>
 {% endblock %}
-
-

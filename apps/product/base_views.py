@@ -6,7 +6,8 @@ class BaseProductListView(ListView):
     context_object_name = "products"
     range_filter_fields = ()
     search_filter_fields = ()
-    list_display_fields = {}
+    list_display_fields = ()
+    brief_list = ()
 
     def get_queryset(self):
         query = self.request.GET.get("q")
@@ -18,8 +19,8 @@ class BaseProductListView(ListView):
             queryset_new = queryset.filter(slug__iregex=query_new)
             if not queryset_new:
                 query_new = query.replace(" ", ".+")
-                queryset = queryset.filter(slug__iregex=query_new)
-            else:
+                queryset_new = queryset.filter(slug__iregex=query_new)
+            if queryset_new:
                 queryset = queryset_new
 
         brand = self.request.GET.getlist("brand")
@@ -51,11 +52,13 @@ class BaseProductListView(ListView):
         context["range_filter_fields"] = self.range_filter_fields
         context["search_filter_fields"] = self.search_filter_fields
         context["list_display_fields"] = self.list_display_fields
+        context["brief_list"] = self.brief_list
 
         context["context"] = {}
         context["context"]["brand"] = sorted(
             set(product.brand.name for product in self.object_list)
         )
+
         if self.object_list.exists():
             for field_name in self.search_filter_fields:
                 if field_name not in ("brand",):
