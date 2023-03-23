@@ -58,7 +58,7 @@ MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
-ROOT_URLCONF = 'new_catalog.urls'
+ROOT_URLCONF = "new_catalog.urls"
 
 TEMPLATES = [
     {
