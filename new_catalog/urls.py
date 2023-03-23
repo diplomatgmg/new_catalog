@@ -28,4 +28,5 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(), name="logout"),
     path("category/", include("apps.product.urls", "product")),
     path("comparison/", include("apps.comparison.urls", "comparison")),
+    path("favorites/", include("apps.favorites.urls", "favorites")),
 ]

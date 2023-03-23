@@ -5,65 +5,69 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Заголовок</title>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+	<meta charset="UTF-8">
+	<title>Заголовок</title>
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
 
-    {% block style %}
-    {% endblock %}
+	{% block style %}
+	{% endblock %}
 </head>
 <body>
 
 <header>
-    <nav>
-        <ul>
-            <li>
-                <a href="#">Категории</a>
-                <ul>
-                    <li><a href="{% url 'product:cpu' %}">Процессоры</a></li>
-                    <li><a href="{% url 'product:gpu' %}">Видеокарты</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">Сравнение</a>
-                <ul>
-                    <li><a href="{% url 'comparison:cpu' %}">Процессоры</a></li>
-                    <li><a href="{% url 'comparison:gpu' %}">Видеокарты</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+	<nav>
+		<ul>
+			<li>
+				<a href="#">Категории</a>
+				<ul>
+					<li><a href="{% url 'product:cpu' %}">Процессоры</a></li>
+					<li><a href="{% url 'product:gpu' %}">Видеокарты</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">Сравнение</a>
+				<ul>
+					<li><a href="{% url 'comparison:cpu' %}">Процессоры</a></li>
+					<li><a href="{% url 'comparison:gpu' %}">Видеокарты</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="{% url 'favorites:index' %}">Избранное</a>
+			</li>
+		</ul>
+	</nav>
 
-    <form method="get" action="{% url 'product:find-model' %}">
-        <div id="search-container">
-            <label for="search-input"></label>
-            <input type="text" id="search-input" placeholder="Введите название товара..."
-                   name="q" value="{{ request.GET.q }}">
-            <button type="submit" id="search-button"></button>
-        </div>
-    </form>
+	<form method="get" action="{% url 'product:find-model' %}">
+		<div id="search-container">
+			<label for="search-input"></label>
+			<input type="text" id="search-input"
+				   placeholder="Введите название товара..."
+				   name="q" value="{{ request.GET.q }}">
+			<button type="submit" id="search-button"></button>
+		</div>
+	</form>
 
-    <div class="login">
-        {% if user.is_authenticated %}
-            Привет, {{ user.username }}
-            {% if user.is_staff %}
-                <a href="{% url 'admin:index' %}">Админка</a>
-            {% endif %}
-            <a href="{% url 'logout' %}">Выход</a>
+	<div class="login">
+		{% if user.is_authenticated %}
+			Привет, {{ user.username }}
+			{% if user.is_staff %}
+				<a href="{% url 'admin:index' %}">Админка</a>
+			{% endif %}
+			<a href="{% url 'logout' %}">Выход</a>
 
-        {% else %}
-            <a href="{% url 'login' %}">Вход</a>
-            <a href="{% url 'register' %}">Регистрация</a>
-        {% endif %}
+		{% else %}
+			<a href="{% url 'login' %}">Вход</a>
+			<a href="{% url 'register' %}">Регистрация</a>
+		{% endif %}
 
-    </div>
+	</div>
 
 </header>
 
 {% if messages %}
-    {% for message in messages %}
-        {{ message }}
-    {% endfor %}
+	{% for message in messages %}
+		{{ message }}
+	{% endfor %}
 {% endif %}
 
 {% block content %}
