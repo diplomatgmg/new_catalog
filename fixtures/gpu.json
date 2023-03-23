@@ -1,0 +1,93 @@
+[
+  {
+    "model": "product.gpumodel",
+    "pk": 3,
+    "fields": {
+      "category": 2,
+      "brand": 3,
+      "slug": "nvidia-geforce-gtx-1660",
+      "family": "GeForce GTX",
+      "model": "1660",
+      "base_clock": "1530",
+      "boost_clock": "1785"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 4,
+    "fields": {
+      "category": 2,
+      "brand": 3,
+      "slug": "nvidia-geforce-rtx-3060",
+      "family": "GeForce RTX",
+      "model": "3060",
+      "base_clock": "1320",
+      "boost_clock": "1777"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 5,
+    "fields": {
+      "category": 2,
+      "brand": 3,
+      "slug": "nvidia-geforce-rtx-3070",
+      "family": "GeForce RTX",
+      "model": "3070",
+      "base_clock": "1500",
+      "boost_clock": "1725"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 6,
+    "fields": {
+      "category": 2,
+      "brand": 3,
+      "slug": "nvidia-geforce-rtx-3080",
+      "family": "GeForce RTX",
+      "model": "3080",
+      "base_clock": "1440",
+      "boost_clock": "1710"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 7,
+    "fields": {
+      "category": 2,
+      "brand": 3,
+      "slug": "nvidia-geforce-rtx-3090",
+      "family": "GeForce RTX",
+      "model": "3090",
+      "base_clock": "1395",
+      "boost_clock": "1695"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 8,
+    "fields": {
+      "category": 2,
+      "brand": 1,
+      "slug": "amd-radeon-rx-6900-xt",
+      "family": "Radeon RX",
+      "model": "6900 XT",
+      "base_clock": "1825",
+      "boost_clock": "2250"
+    }
+  },
+  {
+    "model": "product.gpumodel",
+    "pk": 9,
+    "fields": {
+      "category": 2,
+      "brand": 1,
+      "slug": "amd-radeon-rx-6800-xt",
+      "family": "Radeon RX",
+      "model": "6800 XT",
+      "base_clock": "2015",
+      "boost_clock": "2250"
+    }
+  }
+]
