@@ -1,353 +1,405 @@
 [
-{
+  {
     "model": "product.cpumodel",
     "pk": 7,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-ryzen-9-5950x",
-        "family": "Ryzen 9",
-        "model": "5950x",
-        "num_cores": 16,
-        "base_clock": 4900
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-9-5950x",
+      "family": "Ryzen 9",
+      "model": "5950x",
+      "num_cores": 16,
+      "base_clock": 4900
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 8,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-ryzen-7-5800x",
-        "family": "Ryzen 7",
-        "model": "5800x",
-        "num_cores": 8,
-        "base_clock": 4700
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-7-5800x",
+      "family": "Ryzen 7",
+      "model": "5800x",
+      "num_cores": 8,
+      "base_clock": 4700
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 9,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-ryzen-5-5600x",
-        "family": "Ryzen 5",
-        "model": "5600x",
-        "num_cores": 6,
-        "base_clock": 4600
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-5-5600x",
+      "family": "Ryzen 5",
+      "model": "5600x",
+      "num_cores": 6,
+      "base_clock": 4600
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 10,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-ryzen-9-pro-5950x",
-        "family": "Ryzen 9 Pro",
-        "model": "5950x",
-        "num_cores": 16,
-        "base_clock": 4900
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-9-pro-5950x",
+      "family": "Ryzen 9 Pro",
+      "model": "5950x",
+      "num_cores": 16,
+      "base_clock": 4900
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 11,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-ryzen-7-pro-5850x",
-        "family": "Ryzen 7 Pro",
-        "model": "5850x",
-        "num_cores": 12,
-        "base_clock": 4700
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-7-pro-5850x",
+      "family": "Ryzen 7 Pro",
+      "model": "5850x",
+      "num_cores": 12,
+      "base_clock": 4700
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 12,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-ryzen-5-pro-5650x",
-        "family": "Ryzen 5 Pro",
-        "model": "5650x",
-        "num_cores": 6,
-        "base_clock": 4600
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-5-pro-5650x",
+      "family": "Ryzen 5 Pro",
+      "model": "5650x",
+      "num_cores": 6,
+      "base_clock": 4600
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 13,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-athlon-gold-3140u",
-        "family": "Athlon Gold",
-        "model": "3140u",
-        "num_cores": 2,
-        "base_clock": 2400
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-athlon-gold-3140u",
+      "family": "Athlon Gold",
+      "model": "3140u",
+      "num_cores": 2,
+      "base_clock": 2400
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 14,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-athlon-silver-3050u",
-        "family": "Athlon Silver",
-        "model": "3050u",
-        "num_cores": 2,
-        "base_clock": 2300
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-athlon-silver-3050u",
+      "family": "Athlon Silver",
+      "model": "3050u",
+      "num_cores": 2,
+      "base_clock": 2300
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 15,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-ryzen-threadripper-pro-3995wx",
-        "family": "Ryzen Threadripper Pro",
-        "model": "3995wx",
-        "num_cores": 64,
-        "base_clock": 2900
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-threadripper-pro-3995wx",
+      "family": "Ryzen Threadripper Pro",
+      "model": "3995wx",
+      "num_cores": 64,
+      "base_clock": 2900
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 16,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-epyc-7763",
-        "family": "Epyc",
-        "model": "7763",
-        "num_cores": 64,
-        "base_clock": 2800
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-epyc-7763",
+      "family": "Epyc",
+      "model": "7763",
+      "num_cores": 64,
+      "base_clock": 2800
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 17,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-ryzen-threadripper-3970x",
-        "family": "Ryzen Threadripper",
-        "model": "3970x",
-        "num_cores": 32,
-        "base_clock": 3700
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-threadripper-3970x",
+      "family": "Ryzen Threadripper",
+      "model": "3970x",
+      "num_cores": 32,
+      "base_clock": 3700
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 18,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-ryzen-5-3500",
-        "family": "Ryzen 5",
-        "model": "3500",
-        "num_cores": 6,
-        "base_clock": 3600
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-5-3500",
+      "family": "Ryzen 5",
+      "model": "3500",
+      "num_cores": 6,
+      "base_clock": 3600
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 19,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-ryzen-3-3200g",
-        "family": "Ryzen 3",
-        "model": "3200g",
-        "num_cores": 4,
-        "base_clock": 3600
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-3-3200g",
+      "family": "Ryzen 3",
+      "model": "3200g",
+      "num_cores": 4,
+      "base_clock": 3600
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 20,
     "fields": {
-        "category": 1,
-        "brand": 1,
-        "slug": "amd-ryzen-9-5990x",
-        "family": "Ryzen 9",
-        "model": "5990x",
-        "num_cores": 64,
-        "base_clock": 5300
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-9-5990x",
+      "family": "Ryzen 9",
+      "model": "5990x",
+      "num_cores": 64,
+      "base_clock": 5300
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 21,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-core-i9-11900k",
-        "family": "Core i9",
-        "model": "11900k",
-        "num_cores": 8,
-        "base_clock": 5300
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i9-11900k",
+      "family": "Core i9",
+      "model": "11900k",
+      "num_cores": 8,
+      "base_clock": 5300
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 22,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-core-i7-11700k",
-        "family": "Core i7",
-        "model": "11700k",
-        "num_cores": 8,
-        "base_clock": 4900
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i7-11700k",
+      "family": "Core i7",
+      "model": "11700k",
+      "num_cores": 8,
+      "base_clock": 4900
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 23,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-core-i9-11900kf",
-        "family": "Core i9",
-        "model": "11900KF",
-        "num_cores": 8,
-        "base_clock": 3700
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i9-11900kf",
+      "family": "Core i9",
+      "model": "11900KF",
+      "num_cores": 8,
+      "base_clock": 3700
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 24,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-core-i7-11700f",
-        "family": "Core i7",
-        "model": "11700F",
-        "num_cores": 8,
-        "base_clock": 2500
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i7-11700f",
+      "family": "Core i7",
+      "model": "11700F",
+      "num_cores": 8,
+      "base_clock": 2500
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 25,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-core-i5-11400f",
-        "family": "Core i5",
-        "model": "11400F",
-        "num_cores": 6,
-        "base_clock": 2900
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i5-11400f",
+      "family": "Core i5",
+      "model": "11400F",
+      "num_cores": 6,
+      "base_clock": 2900
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 26,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-pentium-g6400",
-        "family": "Pentium",
-        "model": "G6400",
-        "num_cores": 2,
-        "base_clock": 4000
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-pentium-g6400",
+      "family": "Pentium",
+      "model": "G6400",
+      "num_cores": 2,
+      "base_clock": 4000
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 27,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-celeron-g5920",
-        "family": "Celeron",
-        "model": "G5920",
-        "num_cores": 2,
-        "base_clock": 3100
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-celeron-g5920",
+      "family": "Celeron",
+      "model": "G5920",
+      "num_cores": 2,
+      "base_clock": 3100
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 28,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-core-i9-12900k",
-        "family": "Core i9",
-        "model": "12900K",
-        "num_cores": 16,
-        "base_clock": 3100
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i9-12900k",
+      "family": "Core i9",
+      "model": "12900K",
+      "num_cores": 16,
+      "base_clock": 3100
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 29,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-core-i7-12700k",
-        "family": "Core i7",
-        "model": "12700K",
-        "num_cores": 12,
-        "base_clock": 3100
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i7-12700k",
+      "family": "Core i7",
+      "model": "12700K",
+      "num_cores": 12,
+      "base_clock": 3100
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 30,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-core-i5-12600k",
-        "family": "Core i5",
-        "model": "12600K",
-        "num_cores": 10,
-        "base_clock": 3700
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i5-12600k",
+      "family": "Core i5",
+      "model": "12600K",
+      "num_cores": 10,
+      "base_clock": 3700
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 33,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-core-i5-11600k",
-        "family": "Core i5",
-        "model": "11600K",
-        "num_cores": 6,
-        "base_clock": 3900
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i5-11600k",
+      "family": "Core i5",
+      "model": "11600K",
+      "num_cores": 6,
+      "base_clock": 3900
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 34,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-core-i9-10900x",
-        "family": "Core i9",
-        "model": "10900X",
-        "num_cores": 10,
-        "base_clock": 3700
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i9-10900x",
+      "family": "Core i9",
+      "model": "10900X",
+      "num_cores": 10,
+      "base_clock": 3700
     }
-},
-{
+  },
+  {
     "model": "product.cpumodel",
     "pk": 35,
     "fields": {
-        "category": 1,
-        "brand": 2,
-        "slug": "intel-core-i7-10700k",
-        "family": "Core i7",
-        "model": "10700K",
-        "num_cores": 8,
-        "base_clock": 3800
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-core-i7-10700k",
+      "family": "Core i7",
+      "model": "10700K",
+      "num_cores": 8,
+      "base_clock": 3800
     }
-}
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 36,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-9-11980hk",
+      "family": "Ryzen 9",
+      "model": "11980hk",
+      "num_cores": 8,
+      "base_clock": 2800
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 37,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-7-11800h",
+      "family": "Ryzen 7",
+      "model": "11800h",
+      "num_cores": 8,
+      "base_clock": 2600
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 38,
+    "fields": {
+      "category": 1,
+      "brand": 1,
+      "slug": "amd-ryzen-5-11500h",
+      "family": "Ryzen 5",
+      "model": "11500h",
+      "num_cores": 6,
+      "base_clock": 2500
+    }
+  },
+  {
+    "model": "product.cpumodel",
+    "pk": 43,
+    "fields": {
+      "category": 1,
+      "brand": 2,
+      "slug": "intel-xeon-w-3175x",
+      "family": "Xeon",
+      "model": "W-3175x",
+      "num_cores": 28,
+      "base_clock": 3100
+    }
+  }
 ]
