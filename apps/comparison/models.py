@@ -1,9 +1,8 @@
-from django.db import models
-from django.urls import reverse
-
 from django.contrib.sessions.models import Session
+from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
+from django.urls import reverse
 
 
 class BaseComparison(models.Model):
@@ -14,7 +13,18 @@ class BaseComparison(models.Model):
         null=True,
         blank=True,
     )
-    temp_user = models.CharField(max_length=255, blank=True)
+    temp_user = models.CharField(max_length=255, blank=True, null=True)
+
+    @classmethod
+    def get_or_create(cls, user_id=None, session=None):
+        if user_id is not None:
+            model, _ = cls.objects.get_or_create(user_id=user_id)
+        elif session is not None:
+            session_key = session.session_key or None
+            if session_key is None:
+                session.create()
+            model, _ = cls.objects.get_or_create(temp_user=session_key)
+        return model
 
     def __str__(self):
         if self.user:
@@ -60,3 +70,10 @@ class GPUComparison(BaseComparison):
     class Meta:
         verbose_name = "сравнение видеокарт"
         verbose_name_plural = "сравнение видеокарт"
+
+    @staticmethod
+    @receiver(pre_delete, sender=Session)
+    def delete_comparison_for_session(sender, instance, **kwargs):
+        to_delete = GPUComparison.objects.filter(temp_user=instance.session_key)
+        if to_delete.exists():
+            to_delete.delete()

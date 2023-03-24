@@ -11,7 +11,7 @@ class BaseProductListView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get("q")
-        queryset = self.model.objects.all().select_related("brand")
+        queryset = self.model.objects.all().select_related("brand", "category")
 
         if query:
             query = ".*" + " ".join(query.lower().strip().split()) + ".*"

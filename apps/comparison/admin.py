@@ -4,7 +4,6 @@ from apps.comparison.models import CPUComparison, GPUComparison
 
 
 class BaseComparisonAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "num_products")
     search_fields = ("user__username",)
     filter_horizontal = ("products",)
 
