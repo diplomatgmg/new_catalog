@@ -1,22 +1,19 @@
 header {
+    position: relative;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #f5f5f5;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
 }
 
 .logo {
     font-size: 24px;
-    font-weight: bold;
-}
-
-nav ul,
-.product-list ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 nav li {
@@ -24,12 +21,11 @@ nav li {
     margin-right: 20px;
 }
 
-nav a,
-.compare-link {
+nav a, .compare-link {
     display: block;
-    padding: 10px;
     color: #333;
     text-decoration: none;
+    padding: 10px;
 }
 
 nav ul ul {
@@ -38,8 +34,9 @@ nav ul ul {
     left: 0;
     background-color: #fff;
     border: 1px solid #ccc;
-    padding: 10px;
     display: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
 }
 
 nav ul li:hover > ul {
@@ -48,100 +45,109 @@ nav ul li:hover > ul {
 
 .login a {
     margin-left: 20px;
-    padding: 10px;
     background-color: #333;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 10px;
 }
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: #b0b0b0;
     margin: 0;
     padding: 0;
 }
 
 .login-form {
     max-width: 500px;
-    margin: 30px auto;
-    padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    margin: 30px auto;
+    padding: 20px;
 }
 
 label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+input[type=text], input[type=email], input[type=password] {
     width: 100%;
-    padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 3px;
     box-sizing: border-box;
+    padding: 10px;
 }
 
-button[type="submit"] {
+button[type=submit] {
+    display: block;
     background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 3px;
+    font-size: 16px;
     cursor: pointer;
-}
-
-button[type="submit"]:hover {
-    background-color: #45a049;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 20px auto 0;
+    padding: 10px 20px;
 }
 
 .reset {
     background-color: #880021;
-    color: white;
-    padding: 12px 20px;
+    color: #FFF;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin: 20px auto 0;
     text-transform: uppercase;
+    margin: 20px auto 0;
+    padding: 12px 20px;
 }
 
 .reset:hover {
     background-color: #d7002f;
 }
 
-
 .product-list {
+    flex: 1;
+    flex-direction: column;
     font-family: Arial, sans-serif;
     font-size: 16px;
-}
-
-.product-list ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -20px;
+    padding: 20px;
 }
 
 .product-list li {
-    display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    flex-basis: calc(33.33% - 20px);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
 .product-list li h3 {
-    margin: 0;
     flex-grow: 1;
+    margin: 0;
 }
 
 .product-list li .price {
-    font-weight: bold;
     margin-right: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #e67e22;
 }
 
 .product-list li .compare-link {
@@ -153,12 +159,11 @@ button[type="submit"]:hover {
     text-decoration: underline;
 }
 
-
 #search-container {
     position: relative;
-    margin: auto;
     width: 400px;
     height: 40px;
+    margin: auto;
 }
 
 #search-input {
@@ -166,9 +171,9 @@ button[type="submit"]:hover {
     height: 100%;
     border: 2px solid #ccc;
     border-radius: 20px;
-    padding: 10px;
     font-size: 16px;
     outline: none;
+    padding: 10px;
 }
 
 #search-button {
@@ -184,16 +189,9 @@ button[type="submit"]:hover {
     cursor: pointer;
 }
 
-
 .container {
     margin-top: 25px;
     display: flex;
-}
-
-.product-list {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
 }
 
 .product {
@@ -201,9 +199,9 @@ button[type="submit"]:hover {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    padding: 10px;
     background-color: #f5f5f5;
     border-radius: 5px;
+    padding: 10px;
 }
 
 .product:hover {
@@ -213,26 +211,26 @@ button[type="submit"]:hover {
 .product-name {
     margin-left: 20px;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
     display: flex;
     align-items: center;
 }
 
-
 .product-compare {
     margin-right: 20px;
     font-size: 14px;
-    color: #0066cc;
+    color: #06c;
     cursor: pointer;
 }
 
 .filter {
+    height: fit-content;
     margin-right: 20px;
     margin-left: 15px;
     flex-basis: 400px;
-    padding: 10px;
     background-color: #f5f5f5;
     border-radius: 5px;
+    padding: 10px;
 }
 
 .filter h2 {
@@ -252,30 +250,28 @@ button[type="submit"]:hover {
 
 .filter select {
     font-size: 16px;
-    padding: 5px;
     margin-bottom: 10px;
     border-radius: 5px;
+    padding: 5px;
 }
 
 .filter button {
     font-size: 18px;
-    padding: 10px;
-    background-color: #0066cc;
+    background-color: #06c;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    padding: 10px;
 }
 
 .filter button:hover {
     background-color: #0059b3;
 }
 
-
 fieldset {
     margin-top: 10px;
 }
-
 
 .search-list {
     height: auto;
@@ -283,152 +279,21 @@ fieldset {
     overflow-y: auto;
 }
 
-
-header {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f5f5f5;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
 nav ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
-}
-
-nav li {
-    position: relative;
-    margin-right: 20px;
+    margin: 0;
+    padding: 0;
 }
 
 nav a {
     display: block;
-    padding: 10px;
     color: #333;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 700;
     text-transform: uppercase;
-}
-
-nav ul ul {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
     padding: 10px;
-    display: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-nav ul li:hover > ul {
-    display: block;
-}
-
-.login a {
-    margin-left: 20px;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.login a:hover {
-    background-color: #2E8B57;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
-}
-
-.login-form {
-    max-width: 500px;
-    margin: 30px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
-}
-
-button[type="submit"] {
-    display: block;
-    margin: 20px auto 0;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    font-size: 16px;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-button[type="submit"]:hover {
-    background-color: #2E8B57;
-}
-
-.product-list {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: -20px
-}
-
-.product-list ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.product-list li {
-    flex-basis: calc(33.33% - 20px);
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    margin-right: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
 }
 
 .product-list li img {
@@ -449,28 +314,43 @@ button[type="submit"]:hover {
     margin-bottom: 10px;
 }
 
-.product-list li .price {
-    font-size: 16px;
-    font-weight: 700;
-    color: #e67e22;
-}
-
 .product-list li .btn {
     display: inline-block;
     background-color: #3498db;
     color: #fff;
-    padding: 8px 16px;
     border-radius: 3px;
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
     text-decoration: none;
     margin-top: 10px;
+    padding: 8px 16px;
 }
 
 .product-list li .btn:hover {
     background-color: #2980b9;
 }
+
+#searchInput {
+    align-self: center;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 8px;
+}
+
+nav ul, .product-list ul, .product-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+button[type=submit]:hover, .login a:hover {
+    background-color: #2E8B57;
+}
+
 
 @media only screen and (max-width: 767px) {
     .product-list li {
@@ -485,20 +365,4 @@ button[type="submit"]:hover {
         margin-right: 0;
     }
 }
-
-
-/* Стили для поля ввода поиска */
-#searchInput {
-    align-self: center;
-    padding: 8px;
-    font-size: 16px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    margin-bottom: 16px;
-    margin-top: 10px;
-}
-
-
-
 

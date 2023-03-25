@@ -1,13 +1,32 @@
+from django.shortcuts import render
 from django.views.generic import ListView
 
 
 class BaseProductListView(ListView):
+    object_list = None
     template_name = "product/product-list.html"
     context_object_name = "products"
     range_filter_fields = ()
     search_filter_fields = ()
     list_display_fields = ()
     brief_list = ()
+    paginate_by = 50
+
+    @staticmethod
+    def is_ajax(request):
+        return request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest"
+
+    def get(self, request, *args, **kwargs):
+        if self.is_ajax(request):
+            self.object_list = self.get_queryset()
+            context = self.get_context_data()
+            products = self.paginate_queryset(
+                self.object_list, self.paginate_by
+            )[2]
+            context["products"] = products
+            return render(request, "product/products.html", context)
+        else:
+            return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         query = self.request.GET.get("q")
@@ -66,15 +85,20 @@ class BaseProductListView(ListView):
                         set(
                             getattr(product, field_name)
                             for product in self.object_list
+                            if getattr(product, field_name) is not None
                         )
                     )
 
             for field_name in self.range_filter_fields:
                 context["context"][f"{field_name}_min"] = min(
-                    getattr(product, field_name) for product in self.object_list
+                    getattr(product, field_name)
+                    for product in self.object_list
+                    if getattr(product, field_name)
                 )
                 context["context"][f"{field_name}_max"] = max(
-                    getattr(product, field_name) for product in self.object_list
+                    getattr(product, field_name)
+                    for product in self.object_list
+                    if getattr(product, field_name)
                 )
 
         return context

@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.urls import reverse
 
 from apps.comparison.models import CPUComparison, GPUComparison
 
@@ -63,19 +64,131 @@ class BaseProductModel(models.Model):
 
 class CPUModel(BaseProductModel):
     family = models.CharField(
-        max_length=50, verbose_name="Семейство", help_text="Пример: Ryzen 9"
+        max_length=50,
+        verbose_name="Семейство",
+        help_text="Прим.: Ryzen 9",
     )
     model = models.CharField(
-        max_length=50, verbose_name="Модель", help_text="Пример: 5900x"
+        max_length=50, verbose_name="Модель", help_text="Прим.: 5900x"
     )
-    num_cores = models.PositiveIntegerField(
+    year = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Год выпуска",
+    )
+
+    SER = "SER"
+    DES = "DES"
+    MOB = "MOB"
+    MONTH_CHOICES = (
+        (SER, "Серверный"),
+        (DES, "Настольный"),
+        (MOB, "Мобильный"),
+    )
+
+    segment = models.CharField(
+        "Сегмент",
+        null=True,
+        blank=True,
+        max_length=10,
+        choices=MONTH_CHOICES,
+        default=DES,
+    )
+
+    socket = models.CharField(
+        null=True,
+        blank=True,
+        max_length=50,
+        verbose_name="Сокет",
+    )
+    num_cores = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True,
         verbose_name="Количество ядер",
-        help_text="Введите количество ядер процессора",
     )
-    base_clock = models.PositiveIntegerField(
-        verbose_name="Тактовая частота",
-        help_text="Введите тактовую частоту процессора в MHz",
+    threads = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Количество потоков",
     )
+    base_clock = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Базовая частота",
+    )
+    boost_clock = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Максимальная частота",
+    )
+    unlocked_multiplier = models.BooleanField(
+        null=True,
+        blank=True,
+        verbose_name="Разблокированный множитель",
+        help_text="Имеет ли процессор разблокированный множитель для разгона",
+    )
+    architecture = models.CharField(
+        null=True,
+        blank=True,
+        max_length=50,
+        verbose_name="Архитектура",
+        help_text="Прим.: Raptor Lake",
+    )
+    technology = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Техпроцесс",
+    )
+    tdp = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="TDP",
+    )
+    max_temperature = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Максимальная температура",
+    )
+    l1_cache = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Кэш L1",
+        help_text="Объем кэша L1 в КБ",
+    )
+    l2_cache = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Кэш L2",
+        help_text="Объем кэша L2 в КБ",
+    )
+    l3_cache = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Кэш L3",
+        help_text="Объем кэша L3 в КБ",
+    )
+    integrated_graphics = models.BooleanField(
+        null=True,
+        blank=True,
+        verbose_name="Встроенная графика",
+    )
+    memory_controller = models.CharField(
+        null=True,
+        blank=True,
+        max_length=50,
+        verbose_name="Тип памяти",
+        help_text="Тип поддерживаемой памяти",
+    )
+    pcie = models.CharField(
+        null=True,
+        blank=True,
+        max_length=3,
+        verbose_name="PCIe",
+    )
+
+    @staticmethod
+    def get_reverse_url():
+        return reverse("product:cpu")
 
     @staticmethod
     def get_comparison_model():
@@ -90,10 +203,10 @@ class CPUModel(BaseProductModel):
 
 class GPUModel(BaseProductModel):
     family = models.CharField(
-        max_length=50, verbose_name="Семейство", help_text="Пример: GeForce RTX"
+        verbose_name="Семейство", max_length=50, help_text="Пример: GeForce RTX"
     )
     model = models.CharField(
-        max_length=50, verbose_name="Модель", help_text="Пример: 3080"
+        verbose_name="Модель", max_length=50, help_text="Пример: 3080"
     )
     base_clock = models.PositiveIntegerField(
         verbose_name="Базовая тактовая частота",
@@ -103,6 +216,10 @@ class GPUModel(BaseProductModel):
         verbose_name="Максимальная тактовая частота",
         help_text="Введите максимальную тактовую частоту видеокарты в GHz",
     )
+
+    @staticmethod
+    def get_reverse_url():
+        return reverse("product:gpu")
 
     @staticmethod
     def get_comparison_model():

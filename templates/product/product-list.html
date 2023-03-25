@@ -5,24 +5,9 @@
 {% block content %}
 
 	<div class="container">
-		<div class="product-list">
-			{% for product in products %}
-				<div class="product">
-					<div class="product-name">{{ product }}</div>
-					{% for field_key, field_name in brief_list %}
-						<div>
-							{{ field_name }}:
-							{{ product|getattr:field_key }}
-						</div>
-					{% endfor %}
-					<div class="product-compare">
-						<button class="compare-button"
-						   data-asdf="{{ product.category.slug }}"
-						   data-model-name="{{ product.slug }}">К сравнению
-						</button>
-					</div>
-				</div>
-			{% endfor %}
+		<div class="product-list" id="product-list">
+			{% include 'product/products.html' %}
+
 		</div>
 
 		<div class="filter">
@@ -48,7 +33,7 @@
 												   name="{{ field_key }}"
 												   value="{{ name }}"
 												   {% if name in request.GET|getlist:field_key %}checked{% endif %}>
-											{{ name }}
+											{{ name }} {{ field_value }}
 										</label>
 									</div>
 								{% endfor %}
@@ -114,4 +99,58 @@
             searchInput.addEventListener('input', filterItems);
         }
 	</script>
+	<script>
+        $(document).ready(function () {
+            var loading = false;
+            var page = 1;
+            var requestData = {
+                'page': page,
+                {% for key, value in request.GET.items %}
+                    '{{ key }}': '{{ value }}',
+                {% endfor %}
+            };
+
+            function loadProducts() {
+                if (!loading) {
+                    loading = true;
+                    page += 1;
+
+
+                    $.ajax({
+                        url: '{{ products.0.get_reverse_url }}',
+                        data: requestData,
+                        success: function (data) {
+                            if (data.trim()) {
+                                $('#product-list').append(data);
+                                loading = false;
+                            }
+                        },
+                        beforeSend: function () {
+                            // Показываем заглушку во время загрузки
+                            $('<div>', {'class': 'loading'}).text('Загрузка...').appendTo('.product-list');
+                        },
+                        complete: function () {
+                            // Скрываем заглушку после загрузки
+                            $('.loading').remove();
+                        }
+                    });
+                }
+            }
+
+            $(window).scroll(function () {
+                if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+                    loadProducts();
+                }
+            });
+            // Обработчик изменения параметров фильтрации
+            $('.filter-form').on('submit', function (event) {
+                event.preventDefault();
+                requestData = $(this).serialize();
+                $('#product-list').empty(); // Очищаем список товаров
+                page = 1; // Сбрасываем страницу на первую
+                loadProducts(); // Загружаем первую страницу товаров с учетом новых параметров фильтрации
+            });
+        });
+	</script>
+
 {% endblock %}

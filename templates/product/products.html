@@ -1,0 +1,21 @@
+{% load product_extras %}
+
+{% for product in products %}
+	<div class="product">
+		<div class="product-name">{{ product }}</div>
+		{% for field_key, field_name in brief_list %}
+			<div>
+				{{ field_name }}:
+				{{ product|getattr:field_key }}
+			</div>
+		{% endfor %}
+		<div class="product-compare">
+			<button class="compare-button"
+					data-asdf="{{ product.category.slug }}"
+					data-model-name="{{ product.slug }}">К сравнению
+			</button>
+		</div>
+	</div>
+
+{% endfor %}
+
