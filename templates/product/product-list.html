@@ -115,6 +115,7 @@
                     loading = true;
                     page += 1;
 
+                    requestData.page = page; // Обновляем значение page
 
                     $.ajax({
                         url: '{{ products.0.get_reverse_url }}',
@@ -126,11 +127,9 @@
                             }
                         },
                         beforeSend: function () {
-                            // Показываем заглушку во время загрузки
                             $('<div>', {'class': 'loading'}).text('Загрузка...').appendTo('.product-list');
                         },
                         complete: function () {
-                            // Скрываем заглушку после загрузки
                             $('.loading').remove();
                         }
                     });
@@ -142,15 +141,17 @@
                     loadProducts();
                 }
             });
-            // Обработчик изменения параметров фильтрации
+
             $('.filter-form').on('submit', function (event) {
                 event.preventDefault();
                 requestData = $(this).serialize();
-                $('#product-list').empty(); // Очищаем список товаров
-                page = 1; // Сбрасываем страницу на первую
-                loadProducts(); // Загружаем первую страницу товаров с учетом новых параметров фильтрации
+                $('#product-list').empty();
+                page = 1; // Обновляем значение page
+                requestData.page = page; // Обновляем значение page
+                loadProducts();
             });
         });
+
 	</script>
 
 {% endblock %}
