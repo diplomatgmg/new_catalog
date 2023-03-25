@@ -37,3 +37,14 @@ def add_min_max(field_key, min_max):
         return f"{field_key}_min"
     elif "max" == min_max:
         return f"{field_key}_max"
+
+
+@register.filter
+def yes_or_no(value, answer):
+    yes, no = answer.split(",")
+    if value is True:
+        return yes
+    elif value is False:
+        return no
+    else:
+        return value

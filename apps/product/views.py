@@ -6,7 +6,7 @@ class CPUListView(BaseProductListView):
     model = CPUModel
     # Поля для фильтрации диапазона
     range_filter_fields = (
-        "num_cores",
+        "cores",
         "threads",
         "base_clock",
         "boost_clock",
@@ -17,7 +17,7 @@ class CPUListView(BaseProductListView):
         "l3_cache",
     )
 
-    search_filter_fields = (
+    choice_filter_fields = (
         "brand",
         "family",
         "model",
@@ -30,18 +30,17 @@ class CPUListView(BaseProductListView):
         "integrated_graphics",
         "memory_controller",
         "pcie",
-
     )
 
     list_display_fields = (
         ("brand", "Бренд", ""),
         ("family", "Семейство", ""),
         ("model", "Модель", ""),
-        ("num_cores", "Количество ядер", "ядер"),
+        ("cores", "Количество ядер", "ядер"),
         ("threads", "Количество Потоков", "потока"),
         ("base_clock", "Базовая частота", "МГц"),
         ("year", "Год выхода", ""),
-        ("segment", "Сегмент", ""),
+        ('segment', "Сегмент", ""),
         ("socket", "Сокет", ""),
         ("architecture", "Архитектура процессора", ""),
         ("technology", "Технология процессора", "нм"),
@@ -56,8 +55,8 @@ class CPUListView(BaseProductListView):
     )
 
     brief_list = (
-        ("num_cores", "Ядер"),
-        ("socket", "Сокет"),
+        ("cores", "Ядер"),
+        ("year", "Год"),
     )
 
 
@@ -68,7 +67,7 @@ class GPUListView(BaseProductListView):
         "boost_clock",
     )
 
-    search_filter_fields = (
+    choice_filter_fields = (
         "brand",
         "family",
         "model",

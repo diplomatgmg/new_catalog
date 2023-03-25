@@ -40,8 +40,11 @@ class CPUComparisonListView(BaseComparison):
     comparison_fields = (
         ("brand", "Бренд", ""),
         ("family", "Семейство", ""),
+        ("segment", "Сегмент", ""),
         ("model", "Модель", ""),
-        ("num_cores", "Ядер", ""),
+        ("year", "Год", ""),
+        ("cores", "Ядер", ""),
+        ("threads", "Потоков", ""),
         ("base_clock", "Базовая частота", "МГц"),
     )
 

@@ -77,10 +77,10 @@ class CPUModel(BaseProductModel):
         verbose_name="Год выпуска",
     )
 
-    SER = "SER"
-    DES = "DES"
-    MOB = "MOB"
-    MONTH_CHOICES = (
+    SER = "Серверный"
+    DES = "Настольный"
+    MOB = "Мобильный"
+    SEGMENT_CHOICES = (
         (SER, "Серверный"),
         (DES, "Настольный"),
         (MOB, "Мобильный"),
@@ -91,7 +91,7 @@ class CPUModel(BaseProductModel):
         null=True,
         blank=True,
         max_length=10,
-        choices=MONTH_CHOICES,
+        choices=SEGMENT_CHOICES,
         default=DES,
     )
 
@@ -101,7 +101,7 @@ class CPUModel(BaseProductModel):
         max_length=50,
         verbose_name="Сокет",
     )
-    num_cores = models.PositiveSmallIntegerField(
+    cores = models.PositiveSmallIntegerField(
         null=True,
         blank=True,
         verbose_name="Количество ядер",
@@ -198,7 +198,10 @@ class CPUModel(BaseProductModel):
         return f"{self.brand.name} {self.family} {self.model}"
 
     class Meta:
-        ordering = ("brand", "family", "model")
+        ordering = (
+            "-year",
+            "-segment",
+        )
 
 
 class GPUModel(BaseProductModel):

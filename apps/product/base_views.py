@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.views.generic import ListView
 
@@ -7,23 +8,27 @@ class BaseProductListView(ListView):
     template_name = "product/product-list.html"
     context_object_name = "products"
     range_filter_fields = ()
-    search_filter_fields = ()
+    choice_filter_fields = ()
     list_display_fields = ()
     brief_list = ()
-    paginate_by = 50
+    paginate_by = 73
 
-    @staticmethod
-    def is_ajax(request):
-        return request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest"
+    def is_ajax(self):
+        return (
+            self.request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest"
+        )
 
     def get(self, request, *args, **kwargs):
-        if self.is_ajax(request):
+        if self.is_ajax():
             self.object_list = self.get_queryset()
-            context = self.get_context_data()
-            products = self.paginate_queryset(
-                self.object_list, self.paginate_by
-            )[2]
-            context["products"] = products
+
+            paginator = Paginator(self.object_list, self.paginate_by)
+            page_number = self.request.GET.get("page")
+            page_obj = paginator.get_page(page_number)
+
+            context = self.get_context_data(object_list=self.object_list)
+            context["products"] = page_obj.object_list
+
             return render(request, "product/products.html", context)
         else:
             return super().get(request, *args, **kwargs)
@@ -57,9 +62,11 @@ class BaseProductListView(ListView):
             if filter_kwargs:
                 queryset = queryset.filter(**filter_kwargs)
 
-        for field in self.search_filter_fields:
+        for field in self.choice_filter_fields:
             if field not in ("brand",):
                 value = self.request.GET.getlist(field)
+                if not value:
+                    value = self.request.GET.getlist(f"{field}[]")
                 if value:
                     queryset = queryset.filter(**{f"{field}__in": value})
 
@@ -69,7 +76,7 @@ class BaseProductListView(ListView):
         context = super().get_context_data(**kwargs)
 
         context["range_filter_fields"] = self.range_filter_fields
-        context["search_filter_fields"] = self.search_filter_fields
+        context["choice_filter_fields"] = self.choice_filter_fields
         context["list_display_fields"] = self.list_display_fields
         context["brief_list"] = self.brief_list
 
@@ -79,7 +86,7 @@ class BaseProductListView(ListView):
         )
 
         if self.object_list.exists():
-            for field_name in self.search_filter_fields:
+            for field_name in self.choice_filter_fields:
                 if field_name not in ("brand",):
                     context["context"][field_name] = sorted(
                         set(
@@ -93,12 +100,12 @@ class BaseProductListView(ListView):
                 context["context"][f"{field_name}_min"] = min(
                     getattr(product, field_name)
                     for product in self.object_list
-                    if getattr(product, field_name)
+                    if getattr(product, field_name) is not None
                 )
                 context["context"][f"{field_name}_max"] = max(
                     getattr(product, field_name)
                     for product in self.object_list
-                    if getattr(product, field_name)
+                    if getattr(product, field_name) is not None
                 )
 
         return context
