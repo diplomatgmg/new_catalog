@@ -28,7 +28,9 @@
 					</tr>
 					<tr>
 						{% for product in comparison_list %}
-							<td>{{ product|getattr:field_key }} {{ field_value }}</td>
+							<td>
+								{{ product|getattr:field_key|yesnonone}}
+								{{ field_value }}</td>
 						{% endfor %}
 					</tr>
 				{% endfor %}

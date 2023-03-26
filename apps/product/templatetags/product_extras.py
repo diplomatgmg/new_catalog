@@ -40,11 +40,16 @@ def add_min_max(field_key, min_max):
 
 
 @register.filter
-def yes_or_no(value, answer):
-    yes, no = answer.split(",")
+def yesnonone(value, answer=None):
+    if answer:
+        yes, no, none = answer.split(",")
+    else:
+        yes, no, none = "Да", "Нет", "Неизвестно"
     if value is True:
         return yes
     elif value is False:
         return no
+    elif value is None:
+        return none
     else:
         return value

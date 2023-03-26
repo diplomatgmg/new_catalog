@@ -14,8 +14,6 @@ class BaseComparison(ListView):
     template_name = "comparison/product-list.html"
     context_object_name = "comparison_list"
     comparison_fields = ()
-    temp_user = None
-    user_comparison_list = None
 
     def get_queryset(self, **kwargs):
         user_id = (
@@ -24,9 +22,7 @@ class BaseComparison(ListView):
         comparison_model = self.model.get_or_create(
             user_id, self.request.session
         )
-        queryset = comparison_model.products.prefetch_related(
-            "brand", "category"
-        )
+        queryset = comparison_model.products.select_related("brand", "category")
         return queryset.filter(**kwargs)
 
     def get_context_data(self, **kwargs):
@@ -46,6 +42,7 @@ class CPUComparisonListView(BaseComparison):
         ("cores", "Ядер", ""),
         ("threads", "Потоков", ""),
         ("base_clock", "Базовая частота", "МГц"),
+        ("integrated_graphics", "Встроенная графика", ""),
     )
 
 

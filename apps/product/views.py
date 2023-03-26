@@ -45,7 +45,7 @@ class CPUListView(BaseProductListView):
         ("architecture", "Архитектура процессора", ""),
         ("technology", "Технология процессора", "нм"),
         ("tdp", "Тепловыделение", "Вт"),
-        ("max_temperature", "Максимальная температура", "°"),
+        ("max_temperature", "Максимальная температура", "C°"),
         ("l1_cache", "Кэш L1, в КБ", "КБ"),
         ("l2_cache", "Кэш L2, в КБ", "КБ"),
         ("l3_cache", "Кэш L3, в КБ", "КБ"),

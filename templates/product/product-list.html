@@ -33,7 +33,7 @@
 												   name="{{ field_key }}"
 												   value="{{ name }}"
 												   {% if name in request.GET|getlist:field_key %}checked{% endif %}>
-											{{ name|yes_or_no:'Да,Нет' }}
+											{{ name|yesnonone }}
 											{{ field_value }}
 										</label>
 									</div>
@@ -125,7 +125,7 @@
                     requestData.page = page;
 
                     $.ajax({
-                        url: '{{ products.0.get_reverse_url }}',
+                        {#url: '{{ products.0.get_reverse_url }}',#}
                         data: requestData,
                         success: function (data) {
                             if (data.trim()) {
