@@ -1,8 +1,12 @@
-from django.shortcuts import render
-from django.views.generic import ListView
+from urllib.parse import urlencode
+
+from django.http import QueryDict
+from django.shortcuts import redirect, render
+from django.views.generic import TemplateView
 
 
-class BaseProductListView(ListView):
+class BaseProductListView(TemplateView):
+    query = {}
     object_list = None
     model = None
     template_name = "product/product-list.html"
@@ -14,6 +18,10 @@ class BaseProductListView(ListView):
     paginate_by = 70
 
     def get(self, request, *args, **kwargs):
+        redirect_path = self.find_query_to_redirect()
+        if redirect_path:
+            return redirect(redirect_path)
+
         self.object_list = self.get_queryset()
         context = self.get_context_data()
 
@@ -35,8 +43,31 @@ class BaseProductListView(ListView):
         )
 
     @staticmethod
-    def parse_query(query, queryset):
-        default_regex_query = f'.*{" ".join(query.lower().strip().split())}.*'
+    def clear_query(query):
+        return " ".join(query.lower().strip().split())
+
+    def find_query_to_redirect(self):
+        request = self.request
+
+        query = request.GET.get("q")
+
+        if query:
+            self.query["q"] = query
+        else:
+            meta = request.META.get("HTTP_REFERER")
+            query_string = request.META.get("QUERY_STRING")
+            if meta and "?" in meta and query_string:
+                query_dict = QueryDict(meta.split("?")[-1])
+                query = query_dict.get("q")
+                if query:
+                    path = request.path
+                    new_query = urlencode({"q": query})
+                    redirect_path = f"{path}?{new_query}&{query_string}"
+                    return redirect_path
+        return False
+
+    def parse_query(self, query, queryset):
+        default_regex_query = f".*{self.clear_query(query)}.*"
         regex_query = default_regex_query.replace(" ", ".")
         queryset_new = queryset.filter(slug__iregex=regex_query)
         if not queryset_new.exists():
