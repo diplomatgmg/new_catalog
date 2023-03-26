@@ -12,10 +12,10 @@ class BaseProductListView(TemplateView):
     template_name = "product/product-list.html"
     context_object_name = "products"
     range_filter_fields = ()
-    choice_filter_fields = ()
+    choice_filter_fields = {}
     list_display_fields = ()
     brief_list = ()
-    paginate_by = 70
+    paginate_by = 40
 
     def get(self, request, *args, **kwargs):
         redirect_path = self.find_query_to_redirect()
@@ -132,24 +132,33 @@ class BaseProductListView(TemplateView):
         )
 
         if queryset.exists():
-            for field_name in self.choice_filter_fields:
+            for field_name, lambda_sort in self.choice_filter_fields.items():
                 if field_name not in ("brand",):
-                    context["context"][field_name] = set(
+                    fields = set(
                         getattr(product, field_name)
                         for product in queryset
                         if getattr(product, field_name) is not None
                     )
+                    if lambda_sort:
+                        fields = sorted(fields, key=lambda_sort)
+                    context["context"][field_name] = fields
 
             for field_name in self.range_filter_fields:
                 context["context"][f"{field_name}_min"] = min(
-                    getattr(product, field_name)
-                    for product in queryset
-                    if getattr(product, field_name) is not None
+                    (
+                        getattr(product, field_name)
+                        for product in queryset
+                        if getattr(product, field_name) is not None
+                    ),
+                    default=None,
                 )
                 context["context"][f"{field_name}_max"] = max(
-                    getattr(product, field_name)
-                    for product in queryset
-                    if getattr(product, field_name) is not None
+                    (
+                        getattr(product, field_name)
+                        for product in queryset
+                        if getattr(product, field_name) is not None
+                    ),
+                    default=None,
                 )
 
         queryset = self.queryset_paginate(queryset)

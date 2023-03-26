@@ -14,50 +14,62 @@
 			<form method="get" action="{{ request.path }}">
 
 				{% for field_key, field_name, field_value in list_display_fields %}
-					<fieldset>
+					<fieldset tabindex="0">
 						<legend>{{ field_name }}</legend>
-						{% if field_key in choice_filter_fields %}
-							{% with names=context|get:field_key %}
-								{% if names|length > 15 %}
-									<label for="search_{{ field_key }}"></label>
-									<input type="text"
-										   id="search_{{ field_key }}"
-										   placeholder="Поиск...">
-								{% endif %}
-								<div class="search-list">
-								{% for name in names %}
-									<div>
-										<label>
-											<input type="checkbox"
-												   class="{{ field_key }}"
-												   name="{{ field_key }}"
-												   value="{{ name }}"
-												   {% if name in request.GET|getlist:field_key %}checked{% endif %}>
-											{{ name|yesnonone }}
-											{{ field_value }}
-										</label>
-									</div>
-								{% endfor %}
-							{% endwith %}
-						</div>
-
-						{% elif field_key in range_filter_fields %}
-							<div class="filter-interval">
-								{% with min_value=field_key|add_min_max:'min' %}
-									<label>От <input type="number"
-													 name="{{ min_value }}"
-													 placeholder="{{ context|get:min_value }} {{ field_value }}"
-													 value="{{ request.GET|get:min_value }}"></label>
-								{% endwith %}
-
-								{% with max_value=field_key|add_min_max:'max' %}
-									<label>До <input type="number"
-													 name="{{ max_value }}"
-													 placeholder="{{ context|get:max_value }} {{ field_value }}"
-													 value="{{ request.GET|get:max_value }}"></label>
+							{% if field_key in choice_filter_fields %}
+								{% with names=context|get:field_key %}
+									{% if names|length > 15 %}
+										<label for="search_{{ field_key }}"></label>
+										<input type="text"
+											   id="search_{{ field_key }}"
+											   placeholder="Поиск...">
+									{% endif %}
+									<div class="search-list">
+									{% for name in names %}
+										<div>
+											<label>
+												<input type="checkbox"
+													   class="{{ field_key }}"
+													   name="{{ field_key }}"
+													   value="{{ name }}"
+													   {% if name in request.GET|getlist:field_key %}checked{% endif %}>
+												{{ name|yesnonone }}
+												{{ field_value }}
+											</label>
+										</div>
+									{% endfor %}
 								{% endwith %}
 							</div>
-						{% endif %}
+
+							{% elif field_key in range_filter_fields %}
+								<div class="filter-interval">
+									{% with min_value=field_key|add_min_max:'min' %}
+										<label>От <input type="number"
+														 name="{{ min_value }}"
+												{% with placeholder=context|get:min_value %}
+													{% if placeholder %}
+														 placeholder="{{ context|get:min_value }} {{ field_value }}"
+													{% else %}
+														 placeholder="Неизвестно"
+													{% endif %}
+												{% endwith %}
+														 value="{{ request.GET|get:min_value }}"></label>
+									{% endwith %}
+
+									{% with max_value=field_key|add_min_max:'max' %}
+										<label>До <input type="number"
+														 name="{{ max_value }}"
+												{% with placeholder=context|get:max_value %}
+													{% if placeholder %}
+														 placeholder="{{ context|get:max_value }} {{ field_value }}"
+													{% else %}
+														 placeholder="Неизвестно"
+													{% endif %}
+												{% endwith %}
+														 value="{{ request.GET|get:max_value }}"></label>
+									{% endwith %}
+								</div>
+							{% endif %}
 					</fieldset>
 				{% endfor %}
 

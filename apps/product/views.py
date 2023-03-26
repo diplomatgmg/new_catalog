@@ -17,20 +17,20 @@ class CPUListView(BaseProductListView):
         "l3_cache",
     )
 
-    choice_filter_fields = (
-        "brand",
-        "family",
-        "model",
-        "year",
-        "segment",
-        "socket",
-        "unlocked_multiplier",
-        "architecture",
-        "technology",
-        "integrated_graphics",
-        "memory_controller",
-        "pcie",
-    )
+    choice_filter_fields = {
+        "brand": lambda x: x,
+        "family": lambda x: (len(x), x),
+        "model": lambda x: x,
+        "year": lambda x: x,
+        "segment": lambda x: x,
+        "socket": lambda x: (len(x), x),
+        "unlocked_multiplier": lambda x: x,
+        "architecture": lambda x: x,
+        "technology": lambda x: x,
+        "integrated_graphics": lambda x: not x,
+        "memory_controller": lambda x: (len(x), x),
+        "pcie": lambda x: x,
+    }
 
     list_display_fields = (
         ("brand", "Бренд", ""),
@@ -40,7 +40,7 @@ class CPUListView(BaseProductListView):
         ("threads", "Количество Потоков", "потока"),
         ("base_clock", "Базовая частота", "МГц"),
         ("year", "Год выхода", ""),
-        ('segment', "Сегмент", ""),
+        ("segment", "Сегмент", ""),
         ("socket", "Сокет", ""),
         ("architecture", "Архитектура процессора", ""),
         ("technology", "Технология процессора", "нм"),
