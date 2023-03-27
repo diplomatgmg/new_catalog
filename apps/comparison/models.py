@@ -15,17 +15,6 @@ class BaseComparison(models.Model):
     )
     temp_user = models.CharField(max_length=255, blank=True, null=True)
 
-    @classmethod
-    def get_or_create(cls, user_id=None, session=None):
-        if user_id is not None:
-            model, _ = cls.objects.get_or_create(user_id=user_id)
-        elif session is not None:
-            session_key = session.session_key or None
-            if session_key is None:
-                session.create()
-            model, _ = cls.objects.get_or_create(temp_user=session_key)
-        return model
-
     def __str__(self):
         if self.user:
             return self.user.username

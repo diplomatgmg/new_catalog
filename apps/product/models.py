@@ -194,8 +194,6 @@ class CPUModel(BaseProductModel):
     def get_comparison_model():
         return CPUComparison
 
-
-
     def get_full_name(self):
         return f"{self.brand.name} {self.family} {self.model}"
 

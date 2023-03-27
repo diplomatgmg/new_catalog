@@ -25,7 +25,9 @@ class Favorites(models.Model):
         )
 
     def __str__(self):
-        return self.user.username
+        if self.user:
+            return self.user.username
+        return self.temp_user
 
     class Meta:
         verbose_name = "избранное"

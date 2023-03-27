@@ -1,28 +1,31 @@
 from django.http import JsonResponse
 from django.shortcuts import redirect
-from django.views.generic import ListView
+from django.views.generic import TemplateView
 
 from apps.favorites.favorites import Favorites
 from apps.favorites.models import Favorites as FavoritesModel
 
 
-class FavoritesListView(ListView):
+class FavoritesListView(TemplateView):
     template_name = "favorites/favorites-list.html"
     model = FavoritesModel
+    object_list = None
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        context = self.get_context_data()
+        return self.render_to_response(context)
 
     def get_queryset(self):
-        request = self.request
-        if request.user.is_authenticated:
-            user_favorites = self.model.objects.filter(user=request.user).last()
-            return user_favorites.get_favorites() if user_favorites else []
+        if self.request.user.is_authenticated:
+            user_favorites = self.model.objects.filter(
+                user=self.request.user
+            ).last()
         else:
             user_favorites = self.model.objects.filter(
-                temp_user=request.session.session_key
+                temp_user=self.request.session.session_key
             ).last()
-            if user_favorites:
-                return user_favorites.get_favorites() if user_favorites else []
-        return []
-
+        return user_favorites.get_favorites() if user_favorites else []
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

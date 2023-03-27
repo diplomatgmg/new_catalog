@@ -5,13 +5,11 @@ from apps.comparison.views import (
     comparison_remove,
     CPUComparisonListView,
     GPUComparisonListView,
-    IndexCompare,
 )
 
 app_name = "comparison"
 
 urlpatterns = [
-    path("", IndexCompare.as_view(), name="index"),
     path(
         "add/<slug:category_slug>/<slug:product_slug>",
         comparison_add,
