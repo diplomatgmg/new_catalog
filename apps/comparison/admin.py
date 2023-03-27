@@ -5,7 +5,7 @@ from apps.comparison.models import CPUComparison, GPUComparison
 
 class BaseComparisonAdmin(admin.ModelAdmin):
     search_fields = ("user__username",)
-    filter_horizontal = ("products",)
+    raw_id_fields = ("products",)
 
     @staticmethod
     def num_products(obj):

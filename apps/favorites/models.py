@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class FavoriteProducts(models.Model):
+class Favorites(models.Model):
     user = models.ForeignKey(
         "user.User", on_delete=models.CASCADE, verbose_name="Пользователь"
     )
@@ -13,7 +13,10 @@ class FavoriteProducts(models.Model):
     )
 
     def get_favorites(self):
-        return *self.cpu.all(), *self.gpu.all()
+        return (
+            *self.cpu.all().select_related("brand", "category"),
+            *self.gpu.all().select_related("brand", "category"),
+        )
 
     def __str__(self):
         return self.user.username

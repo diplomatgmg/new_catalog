@@ -253,7 +253,13 @@ button[type=submit] {
 .product-compare {
     margin-right: 20px;
     font-size: 14px;
-    color: #06c;
+    cursor: pointer;
+}
+
+
+.product-favorites {
+    margin-right: 20px;
+    font-size: 14px;
     cursor: pointer;
 }
 
