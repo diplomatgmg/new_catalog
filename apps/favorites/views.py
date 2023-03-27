@@ -1,7 +1,5 @@
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import redirect
-from django.utils.decorators import method_decorator
 from django.views.generic import ListView
 
 from apps.favorites.favorites import Favorites
@@ -11,19 +9,20 @@ from apps.favorites.models import Favorites as FavoritesModel
 class FavoritesListView(ListView):
     template_name = "favorites/favorites-list.html"
     model = FavoritesModel
-    context_object_name = "products"
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
 
     def get_queryset(self):
-        user = self.request.user
-        if user.is_authenticated:
-            user_favorites = self.model.objects.filter(user=user).last()
+        request = self.request
+        if request.user.is_authenticated:
+            user_favorites = self.model.objects.filter(user=request.user).last()
             return user_favorites.get_favorites() if user_favorites else []
         else:
-            return []
+            user_favorites = self.model.objects.filter(
+                temp_user=request.session.session_key
+            ).last()
+            if user_favorites:
+                return user_favorites.get_favorites() if user_favorites else []
+        return []
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

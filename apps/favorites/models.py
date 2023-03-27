@@ -3,8 +3,14 @@ from django.db import models
 
 class Favorites(models.Model):
     user = models.ForeignKey(
-        "user.User", on_delete=models.CASCADE, verbose_name="Пользователь"
+        "user.User",
+        on_delete=models.CASCADE,
+        verbose_name="Пользователь",
+        null=True,
+        blank=True,
     )
+    temp_user = models.CharField(max_length=255, blank=True, null=True)
+
     cpu = models.ManyToManyField(
         "product.CPUModel", blank=True, verbose_name="Процессоры"
     )
