@@ -8,10 +8,11 @@
 			{% for product in products %}
 				<div class="product">
 					<div class="product-name">{{ product }}</div>
-					<div class="product-compare">
-						<button class="compare-button"
-								data-model-name="{{ product.slug }}">К сравнению
-						</button>
+					<div>
+						<a href="
+							{% url 'favorites:remove' product.category.slug product.slug %}">
+								Удалить
+							</a>
 					</div>
 				</div>
 			{% endfor %}

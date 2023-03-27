@@ -87,6 +87,7 @@
 {% block scripts %}
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="{% static 'js/compare-add.js' %}"></script>
+	<script src="{% static 'js/favorites-add.js' %}"></script>
 	<script>
         {% for field in choice_filter_fields %}
             {% with names=context|get:field %}

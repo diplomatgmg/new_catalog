@@ -11,12 +11,21 @@
 				{{ product|getattr:field_key }}
 			</div>
 		{% endfor %}
-		<div class="product-compare">
-			<button class="compare-button"
-					data-asdf="{{ product.category.slug }}"
-					data-model-name="{{ product.slug }}">К сравнению
-			</button>
+		<div style="display: flex">
+			<div class="product-favorites">
+				<button class="favorites-button"
+						data-asdf="{{ product.category.slug }}"
+						data-model-name="{{ product.slug }}">В избранное
+				</button>
+			</div>
+			<div class="product-compare">
+				<button class="compare-button"
+						data-asdf="{{ product.category.slug }}"
+						data-model-name="{{ product.slug }}">К сравнению
+				</button>
+			</div>
 		</div>
+
 	</div>
 
 {% endfor %}

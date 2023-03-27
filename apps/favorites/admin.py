@@ -1,7 +1,8 @@
 from django.contrib import admin
-from apps.favorites.models import FavoriteProducts
+
+from apps.favorites.models import Favorites
 
 
-@admin.register(FavoriteProducts)
-class FavoriteProductsAdmin(admin.ModelAdmin):
-    pass
+@admin.register(Favorites)
+class FavoritesAdmin(admin.ModelAdmin):
+    raw_id_fields = ("cpu", "gpu")

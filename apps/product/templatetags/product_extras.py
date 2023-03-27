@@ -25,6 +25,7 @@ def get_max(seq: list[int]) -> int:
 def get(dictionary: dict, key: str) -> str:
     return dictionary.get(key)
 
+
 @register.filter
 def gte(value, arg):
     return value >= arg
