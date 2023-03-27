@@ -2,7 +2,9 @@
 
 {% for product in products %}
 	<div class="product">
-		<div class="product-name">{{ product }}</div>
+		<div class="product-name">
+			<a href="{{ request.path }}{{ product.slug }}">{{ product }}</a>
+		</div>
 		{% for field_key, field_name in brief_list %}
 			<div>
 				{{ field_name }}:

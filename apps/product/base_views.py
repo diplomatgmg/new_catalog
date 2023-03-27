@@ -2,7 +2,7 @@ from urllib.parse import urlencode
 
 from django.http import QueryDict
 from django.shortcuts import redirect, render
-from django.views.generic import TemplateView
+from django.views.generic import DetailView, TemplateView
 
 
 class BaseProductListView(TemplateView):
@@ -110,7 +110,7 @@ class BaseProductListView(TemplateView):
         return queryset
 
     def queryset_paginate(self, queryset):
-        page = int(self.kwargs.get("page") or self.request.GET.get("page") or 1)
+        page = int(self.request.GET.get("page", 1))
         size = self.paginate_by
         start = (page - 1) * size
         end = start + size
@@ -169,4 +169,45 @@ class BaseProductListView(TemplateView):
     def is_ajax(self):
         return (
             self.request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest"
+        )
+
+
+class BaseProductDetailView(DetailView):
+    template_name = "product/product-detail.html"
+    object = None
+    list_display_fields = ()
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
+    def get_object(self, queryset=None):
+        if queryset is None:
+            queryset = self.get_queryset()
+
+        slug = self.kwargs.get("slug")
+        queryset = queryset.filter(slug=slug)
+        try:
+            return queryset.get()
+        except queryset.model.DoesNotExist:
+            return []
+
+    def get_queryset(self):
+        return self.model.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = {
+            "product": self.object,
+            "list_display_fields": self.list_display_fields,
+        }
+
+        return context
+
+    def render_to_response(self, context, **response_kwargs):
+        return self.response_class(
+            request=self.request,
+            template=self.template_name,
+            context=context,
+            **response_kwargs,
         )
