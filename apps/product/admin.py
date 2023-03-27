@@ -13,11 +13,16 @@ class CategoryModelAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(CPUModel)
-class CPUModelAdmin(admin.ModelAdmin):
+class BaseProductModelAdmin(admin.ModelAdmin):
+    search_fields = ("slug",)
     list_select_related = ("brand",)
+
+
+@admin.register(CPUModel)
+class CPUModelAdmin(BaseProductModelAdmin):
+    pass
 
 
 @admin.register(GPUModel)
-class GPUModelAdmin(admin.ModelAdmin):
-    list_select_related = ("brand",)
+class GPUModelAdmin(BaseProductModelAdmin):
+    pass

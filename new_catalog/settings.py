@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "apps.product",
     "apps.comparison",
     "apps.favorites",
+    "apps.review",
 ]
 
 MIDDLEWARE = [
@@ -154,4 +155,4 @@ PRODUCT_MODELS = (
 COMPARISON_MODELS = ("comparison.CPUComparison", "comparison.GPUComparison")
 
 # Уникальное имя для добавления товаров в сравнение в сессии пользователя
-COMPARISON_SESSION = 'comparison'
+COMPARISON_SESSION = "comparison"
