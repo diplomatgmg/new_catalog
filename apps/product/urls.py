@@ -1,7 +1,7 @@
-from django.urls import path
+from django.urls import include, path
 
 from apps.product.find_model import find_model
-from apps.product.views import CPUListView, CPUDetailView, GPUListView
+from apps.product.views import CPUDetailView, CPUListView, GPUListView
 
 app_name = "product"
 

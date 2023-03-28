@@ -226,7 +226,7 @@ button[type=submit] {
     padding: 10px;
 }
 
-.product-detail {
+.product-detail, .product-review {
     justify-self: center;
     display: grid;
     margin-top: 10px;
@@ -408,6 +408,10 @@ nav ul, .product-list ul, .product-list ul {
     padding: 0;
 }
 
+ul {
+    list-style: none;
+}
+
 button[type=submit]:hover, .login a:hover {
     background-color: #2E8B57;
 }
@@ -426,3 +430,38 @@ button[type=submit]:hover, .login a:hover {
         margin-right: 0;
     }
 }
+
+
+.ul-review {
+    display: grid;
+}
+
+.form-review {
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+
+.select-rating {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.review {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.author {
+    font-size: 14px;
+    font-style: italic;
+}
+
+.box {
+    border-bottom: 1px solid #ccc;
+    flex: 1;
+    margin-right: 30px;
+
+}
+

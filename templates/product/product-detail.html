@@ -4,23 +4,23 @@
 
 {% block content %}
 	{% if product %}
-	<div class="product-detail">
-		<h2>{{ product }}</h2>
-		<ul style="list-style-type: none">
-			{% for field_key, field_name, field_value in list_display_fields %}
-				<li>
-					<div class="detail-container">
-						<div class="box1"><strong>{{ field_name }}:</strong>
+		<div class="product-detail">
+			<h2>{{ product }}</h2>
+			<ul style="list-style-type: none">
+				{% for field_key, field_name, field_value in list_display_fields %}
+					<li>
+						<div class="detail-container">
+							<div class="box1"><strong>{{ field_name }}:</strong>
+							</div>
+							<div class="box2">
+								{{ product|getattr:field_key }}
+								{{ field_value }}
+							</div>
 						</div>
-						<div class="box2">
-							{{ product|getattr:field_key }}
-							{{ field_value }}
-						</div>
-					</div>
-				</li>
-			{% endfor %}
-		</ul>
-	</div>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
 	{% else %}
 		Товар с таким именем не найден
 	{% endif %}

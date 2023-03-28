@@ -109,9 +109,10 @@ def clean_string(string):
     """
     Функция, которая оставляет только буквы и цифры в строке
     """
-    s = string.strip().lower()
+    s = string.lower()
     string = re.sub(r"[^a-z0-9\s]", " ", s)
-    return string if string else False
+    clear_string = " ".join(string.split())
+    return clear_string if clear_string else False
 
 
 def find_match(string_1, seq):
