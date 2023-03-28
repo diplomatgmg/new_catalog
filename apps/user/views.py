@@ -2,10 +2,11 @@ from django.contrib import auth, messages
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
 
 from apps.user.forms import UserLoginForm, UserRegisterForm
 from apps.user.models import User
+from mixins.CreateViewMixin import CreateViewMixin
+from mixins.TemplateViewMixin import TemplateViewMixin
 
 
 class UserLoginView(LoginView):
@@ -26,8 +27,7 @@ class UserLoginView(LoginView):
         return self.form_invalid(form)
 
 
-class UserRegisterView(CreateView):
-    model = User
+class UserRegisterView(CreateViewMixin, TemplateViewMixin):
     template_name = "user/register.html"
     form_class = UserRegisterForm
     success_url = reverse_lazy("index:index")
@@ -35,8 +35,8 @@ class UserRegisterView(CreateView):
     def form_valid(self, form):
         form.save()
         username, password = (
-            self.request.POST["username"],
-            self.request.POST["password1"],
+            form.cleaned_data["username"],
+            form.cleaned_data["password1"],
         )
         user = auth.authenticate(username=username, password=password)
         auth.login(self.request, user)

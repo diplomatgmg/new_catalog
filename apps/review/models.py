@@ -12,11 +12,20 @@ class BaseReview(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ('-created_at',)
 
 
 class CPUReview(BaseReview):
     product = models.ForeignKey("product.CPUModel", on_delete=models.CASCADE)
 
+    @staticmethod
+    def get_category_slug():
+        return "cpu"
+
 
 class GPUReview(BaseReview):
     product = models.ForeignKey("product.GPUModel", on_delete=models.CASCADE)
+
+    @staticmethod
+    def get_category_slug():
+        return "gpu"

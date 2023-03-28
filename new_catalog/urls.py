@@ -27,7 +27,7 @@ urlpatterns = [
     path("register/", UserRegisterView.as_view(), name="register"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("category/", include("apps.product.urls", "product")),
-    path("review/", include("apps.review.urls", "review")),
+    # path("review/", include("apps.review.urls", "review")),
     path("comparison/", include("apps.comparison.urls", "comparison")),
     path("favorites/", include("apps.favorites.urls", "favorites")),
 ]

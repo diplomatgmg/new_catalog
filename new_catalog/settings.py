@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     "apps.product",
     "apps.comparison",
     "apps.favorites",
-    "apps.review",
+    # "apps.review",
 ]
 
 MIDDLEWARE = [
@@ -147,12 +147,9 @@ LOGOUT_REDIRECT_URL = reverse_lazy("index:index")
 
 FIXTURE_DIRS = [BASE_DIR / "fixtures"]
 
-PRODUCT_MODELS = (
-    "product.CPUModel",
-    "product.GPUModel",
-)
-
+PRODUCT_MODELS = ("product.CPUModel", "product.GPUModel")
 COMPARISON_MODELS = ("comparison.CPUComparison", "comparison.GPUComparison")
+REVIEW_MODELS = ("review.CPUReview", "review.GPUReview")
 
 # Уникальное имя для добавления товаров в сравнение в сессии пользователя
 COMPARISON_SESSION = "comparison"

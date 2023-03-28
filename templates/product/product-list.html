@@ -109,7 +109,25 @@
 {% block scripts %}
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="{% static 'js/compare-add.js' %}"></script>
-	<script src="{% static 'js/favorites-add.js' %}"></script>
+	<script>
+        $(document).on('click', '.favorites-button', function () {
+            var button = $(this);
+            var modelSlug = button.data('model-name');
+            var categoryName = button.data('asdf');
+            $.ajax({
+                url: '/favorites/add/' + categoryName + '/' + modelSlug,
+                method: 'GET',
+                success: function (response) {
+                    if (response.success) {
+                        button.text('В избранном');
+                        button.prop('disabled', true);
+                    } else {
+                    }
+                }
+            });
+        });
+
+	</script>
 	<script>
         {% for field in choice_filter_fields %}
             {% with names=context|get:field %}

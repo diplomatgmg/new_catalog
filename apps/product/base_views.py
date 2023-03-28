@@ -3,10 +3,13 @@ from urllib.parse import urlencode
 from django.contrib import messages
 from django.http import QueryDict
 from django.shortcuts import redirect, render
-from django.views.generic import DetailView, TemplateView
+
+from mixins.DetailViewMixin import DetailViewMixin
+from mixins.ListViewMixin import ListViewMixin
+from mixins.TemplateViewMixin import TemplateViewMixin
 
 
-class BaseProductListView(TemplateView):
+class BaseProductListView(ListViewMixin, TemplateViewMixin):
     query = {}
     object_list = None
     model = None
@@ -23,25 +26,14 @@ class BaseProductListView(TemplateView):
         if redirect_path:
             return redirect(redirect_path)
 
-        self.object_list = self.get_queryset()
-        context = self.get_context_data()
-
         if self.is_ajax():
             return self.ajax()
 
-        return self.render_to_response(context)
+        return super().get(request, *args, **kwargs)
 
     def ajax(self):
         context = self.get_context_data()
         return render(self.request, "product/products.html", context)
-
-    def render_to_response(self, context, **response_kwargs):
-        return self.response_class(
-            request=self.request,
-            template=self.template_name,
-            context=context,
-            **response_kwargs,
-        )
 
     @staticmethod
     def clear_query(query):
@@ -125,15 +117,14 @@ class BaseProductListView(TemplateView):
         return queryset[start:end]
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data()
         queryset = self.object_list.select_related("brand", "category")
 
-        context = {
-            "range_filter_fields": self.range_filter_fields,
-            "choice_filter_fields": self.choice_filter_fields,
-            "list_display_fields": self.list_display_fields,
-            "brief_list": self.brief_list,
-            "context": {},
-        }
+        context["range_filter_fields"] = self.range_filter_fields
+        context["choice_filter_fields"] = self.choice_filter_fields
+        context["list_display_fields"] = self.list_display_fields
+        context["brief_list"] = self.brief_list
+        context["context"] = {}
 
         context["context"]["brand"] = sorted(
             set(product.brand.name for product in queryset)
@@ -180,42 +171,14 @@ class BaseProductListView(TemplateView):
         )
 
 
-class BaseProductDetailView(DetailView):
+class BaseProductDetailView(DetailViewMixin, TemplateViewMixin):
     template_name = "product/product-detail.html"
-    object = None
     list_display_fields = ()
 
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        context = self.get_context_data(object=self.object)
-        return self.render_to_response(context)
-
-    def get_object(self, queryset=None):
-        if queryset is None:
-            queryset = self.get_queryset()
-
-        slug = self.kwargs.get("slug")
-        queryset = queryset.filter(slug=slug)
-        try:
-            return queryset.get()
-        except queryset.model.DoesNotExist:
-            return []
-
-    def get_queryset(self):
-        return self.model.objects.all()
-
     def get_context_data(self, **kwargs):
-        context = {
-            "product": self.object,
-            "list_display_fields": self.list_display_fields,
-        }
+        context = super().get_context_data()
+
+        context["product"] = self.object
+        context["list_display_fields"] = self.list_display_fields
 
         return context
-
-    def render_to_response(self, context, **response_kwargs):
-        return self.response_class(
-            request=self.request,
-            template=self.template_name,
-            context=context,
-            **response_kwargs,
-        )

@@ -5,6 +5,10 @@
 {% block content %}
 	{% if product %}
 		<div class="product-detail">
+			<a
+					href="#">
+				Отзывы
+			</a>
 			<h2>{{ product }}</h2>
 			<ul style="list-style-type: none">
 				{% for field_key, field_name, field_value in list_display_fields %}

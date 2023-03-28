@@ -1,5 +1,5 @@
-from django.views.generic import TemplateView
+from mixins.TemplateViewMixin import TemplateViewMixin
 
 
-class IndexTemplateView(TemplateView):
+class IndexView(TemplateViewMixin):
     template_name = "index/index.html"

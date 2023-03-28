@@ -1,17 +1,13 @@
-from django.views.generic import TemplateView
+from mixins.ListViewMixin import ListViewMixin
+from mixins.TemplateViewMixin import TemplateViewMixin
 
 
-class BaseComparisonListView(TemplateView):
+class BaseComparisonListView(ListViewMixin, TemplateViewMixin):
     template_name = "comparison/product-list.html"
     context_object_name = "comparison_list"
     comparison_fields = ()
     object_list = None
     model = None
-
-    def get(self, request, *args, **kwargs):
-        self.object_list = self.get_queryset()
-        context = self.get_context_data()
-        return self.render_to_response(context)
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
@@ -30,5 +26,5 @@ class BaseComparisonListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["comparison_fields"] = self.comparison_fields
-        context["comparison_list"] = self.object_list
+        context["comparison_objects"] = self.object_list
         return context
