@@ -1,7 +1,6 @@
 import re
 
 import numpy as np
-
 from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
@@ -12,19 +11,27 @@ from fuzzywuzzy import process
 PRODUCT_MODELS = settings.PRODUCT_MODELS
 
 product_models = [apps.get_model(model_name) for model_name in PRODUCT_MODELS]
+category_slugs = [
+    product.objects.first().category.slug for product in product_models
+]
 
 
 def find_model(request):
+    # Поиск по категории товара, если категория есть в HTTP_REFERER
+    slugs = None
+    for category_slug in category_slugs:
+        if category_slug in request.META["HTTP_REFERER"].split("/"):
+            slugs = get_slugs(category_slug)
+    if not slugs:
+        slugs = get_slugs()
+
     query = request.GET.get("q")
     query = clean_string(query)
 
     if not query:
-        messages.warning(request, "Похоже, вы ввели пустой запрос.")
-        return redirect(reverse("index:index"))
+        return redirect(request.META["HTTP_REFERER"].split("?")[0])
 
     query_params = "?" + request.META["QUERY_STRING"]
-
-    slugs = get_slugs()
 
     matches = [
         [model, find_match(query, slug)] for model, slug in slugs.items()
@@ -52,7 +59,14 @@ def find_model(request):
         return redirect(reverse("index:index"))
 
 
-def get_slugs():
+def get_slugs(slug=None):
+    if slug:
+        for model in product_models:
+            if model.objects.last().category.slug == slug:
+                return {
+                    model: list(model.objects.values_list("slug", flat=True))
+                }
+
     return {
         model: list(model.objects.values_list("slug", flat=True))
         for model in product_models
@@ -66,7 +80,6 @@ def string_similarity(string_1, string_2):
     len1 = len(string_1)
     len2 = len(string_2)
 
-    # Вычисляем расстояние Левенштейна
     dist = np.zeros((len1 + 1, len2 + 1), dtype=int)
 
     for i in range(len1 + 1):
@@ -97,7 +110,8 @@ def clean_string(string):
     Функция, которая оставляет только буквы и цифры в строке
     """
     s = string.strip().lower()
-    return re.sub(r"[^a-z0-9\s]", " ", s)
+    string = re.sub(r"[^a-z0-9\s]", " ", s)
+    return string if string else False
 
 
 def find_match(string_1, seq):

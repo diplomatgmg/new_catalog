@@ -1,5 +1,6 @@
 from urllib.parse import urlencode
 
+from django.contrib import messages
 from django.http import QueryDict
 from django.shortcuts import redirect, render
 from django.views.generic import DetailView, TemplateView
@@ -73,8 +74,15 @@ class BaseProductListView(TemplateView):
         if not queryset_new.exists():
             regex_query = default_regex_query.replace(" ", ".+")
             queryset_new = queryset.filter(slug__iregex=regex_query)
-        if not queryset_new.exists():
-            return queryset
+            if not queryset_new.exists():
+                messages.add_message(
+                    self.request,
+                    messages.INFO,
+                    "Мы не смогли найти такой товар, "
+                    "вывели Вам все товары "
+                    "из наиболее подходящей категории",
+                )
+                return queryset
         return queryset_new
 
     def get_queryset(self):
@@ -117,7 +125,7 @@ class BaseProductListView(TemplateView):
         return queryset[start:end]
 
     def get_context_data(self, **kwargs):
-        queryset = self.get_queryset().select_related("brand", "category")
+        queryset = self.object_list.select_related("brand", "category")
 
         context = {
             "range_filter_fields": self.range_filter_fields,

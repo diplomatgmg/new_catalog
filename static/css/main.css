@@ -195,6 +195,27 @@ button[type=submit] {
     display: flex;
 }
 
+.search-category {
+    margin-top: 5px;
+    display: flex;
+}
+
+.search-category-item {
+    font-size: 15px;
+    flex: 1;
+}
+
+.warning-message {
+    margin-top: 25px;
+    display: flex;
+    align-content: center;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    place-content: center;
+    color: orange;
+    background: #333333;
+}
+
 .product {
     display: flex;
     justify-content: space-between;

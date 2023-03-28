@@ -93,11 +93,11 @@ class GPUListView(BaseProductListView):
         "boost_clock",
     )
 
-    choice_filter_fields = (
-        "brand",
-        "family",
-        "model",
-    )
+    choice_filter_fields = {
+        "brand": lambda x: x,
+        "family": lambda x: x,
+        "model": lambda x: x,
+    }
 
     list_display_fields = (
         ("brand", "Бренд", ""),

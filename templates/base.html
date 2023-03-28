@@ -18,6 +18,9 @@
 	<nav>
 		<ul>
 			<li>
+				<a href="#">Главная</a>
+			</li>
+			<li>
 				<a href="#">Категории</a>
 				<ul>
 					<li><a href="{% url 'product:cpu' %}">Процессоры</a></li>
@@ -45,6 +48,7 @@
 				   name="q" value="{{ request.GET.q }}">
 			<button type="submit" id="search-button"></button>
 		</div>
+		{% block search_category %}{% endblock %}
 	</form>
 
 	<div class="login">
@@ -62,12 +66,6 @@
 	</div>
 
 </header>
-
-{% if messages %}
-	{% for message in messages %}
-		{{ message }}
-	{% endfor %}
-{% endif %}
 
 {% block content %}
 
