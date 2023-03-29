@@ -53,6 +53,12 @@ class BaseProductModel(models.Model):
     def get_comparison_model():
         raise NotImplementedError(f"Не объявлен метод get_full_name ")
 
+    def get_review_url(self):
+        return reverse(
+            "product:review:list-create",
+            args=(self.category.slug, self.slug),
+        )
+
     def save(self, **kwargs):
         full_name = self.get_full_name()
         self.slug = slugify(full_name)
@@ -185,6 +191,10 @@ class CPUModel(BaseProductModel):
         max_length=3,
         verbose_name="PCIe",
     )
+
+    @classmethod
+    def get_category_slug(cls):
+        return "cpu"
 
     @staticmethod
     def get_reverse_url():

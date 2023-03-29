@@ -1,5 +1,4 @@
-from mixins.ListViewMixin import ListViewMixin
-from mixins.TemplateViewMixin import TemplateViewMixin
+from mixins.mixins import ListViewMixin, TemplateViewMixin
 
 
 class BaseComparisonListView(ListViewMixin, TemplateViewMixin):

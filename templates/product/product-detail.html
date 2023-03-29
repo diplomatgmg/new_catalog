@@ -6,7 +6,7 @@
 	{% if product %}
 		<div class="product-detail">
 			<a
-					href="#">
+					href="{{ product.get_review_url }}">
 				Отзывы
 			</a>
 			<h2>{{ product }}</h2>

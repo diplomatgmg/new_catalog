@@ -3,51 +3,24 @@
 
 {% block content %}
 	<div class="product-review">
-		{#			<form action="" method="POST" class="form-review">#}
-		{#				{% csrf_token %}#}
-		{#				<div class="select-rating">#}
-		{#					<label for="rating">Оценка:</label><br>#}
-		{#					<select id="rating" name="rating" required>#}
-		{#						<option value="">Выберите оценку</option>#}
-		{#						<option value="5">5 звезд</option>#}
-		{#						<option value="4">4 звезды</option>#}
-		{#						<option value="3">3 звезды</option>#}
-		{#						<option value="2">2 звезды</option>#}
-		{#						<option value="1">1 звезда</option>#}
-		{#					</select><br>#}
-		{#				</div>#}
-		{#				<div>#}
-		{#					<label for="review">Отзыв:</label><br>#}
-		{#					<textarea id="review" name="review" rows="5" cols="40"#}
-		{#							  required></textarea><br>#}
-		{##}
-		{#					<input type="submit" value="Отправить">#}
-		{#				</div>#}
-		{#			</form>#}
 
-		<br>
-		<br>
-		<br>
-		<form action="{{ request.path }}">
-			{% csrf_token %}
-			{{ form }}
-			<button type="submit">Отправить</button>
-		</form>
+		{% if user.is_authenticated %}
+			<form action="{{ request.path }}" method="post">
+				{% csrf_token %}
+				{{ form }}
+				<button type="submit">Отправить</button>
+			</form>
+		{% endif %}
 
 		<h2>Другие отзывы:</h2>
 		<ul class="ul-review">
-			<li class="box">
-				<p class="author">Автор 1</p>
-				<p class="review">Отзыв 1</p>
-			</li>
-			<li class="box">
-				<p class="author">Автор 2</p>
-				<p class="review">Отзыв 2</p>
-			</li>
-			<li class="box">
-				<p class="author">Автор 3</p>
-				<p class="review">Отзыв 3</p>
-			</li>
+			{% for review in reviews %}
+				<li class="box">
+					<p class="author">{{ review.user }}</p>
+					<p class="review">{{ review.content }}</p>
+				</li>
+			{% endfor %}
+
 		</ul>
 	</div>
 {% endblock %}

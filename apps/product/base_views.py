@@ -4,9 +4,7 @@ from django.contrib import messages
 from django.http import QueryDict
 from django.shortcuts import redirect, render
 
-from mixins.DetailViewMixin import DetailViewMixin
-from mixins.ListViewMixin import ListViewMixin
-from mixins.TemplateViewMixin import TemplateViewMixin
+from mixins.mixins import DetailViewMixin, ListViewMixin, TemplateViewMixin
 
 
 class BaseProductListView(ListViewMixin, TemplateViewMixin):
@@ -32,7 +30,8 @@ class BaseProductListView(ListViewMixin, TemplateViewMixin):
         return super().get(request, *args, **kwargs)
 
     def ajax(self):
-        context = self.get_context_data()
+        queryset = self.get_queryset()
+        context = self.get_context_data(object_list=queryset)
         return render(self.request, "product/products.html", context)
 
     @staticmethod
@@ -79,7 +78,7 @@ class BaseProductListView(ListViewMixin, TemplateViewMixin):
 
     def get_queryset(self):
         query = self.request.GET.get("q")
-        queryset = self.model.objects.all()
+        queryset = self.model.objects.all().select_related("brand", "category")
 
         if query:
             queryset = self.parse_query(query, queryset)
@@ -116,9 +115,13 @@ class BaseProductListView(ListViewMixin, TemplateViewMixin):
         end = start + size
         return queryset[start:end]
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        queryset = self.object_list.select_related("brand", "category")
+    def get_context_data(self, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if object_list is None:
+            queryset = self.object_list
+        else:
+            queryset = object_list
 
         context["range_filter_fields"] = self.range_filter_fields
         context["choice_filter_fields"] = self.choice_filter_fields

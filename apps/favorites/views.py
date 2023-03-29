@@ -3,8 +3,7 @@ from django.shortcuts import redirect
 
 from apps.favorites.favorites import Favorites
 from apps.favorites.models import Favorites as FavoritesModel
-from mixins.ListViewMixin import ListViewMixin
-from mixins.TemplateViewMixin import TemplateViewMixin
+from mixins.mixins import ListViewMixin, TemplateViewMixin
 
 
 class FavoritesListView(ListViewMixin, TemplateViewMixin):

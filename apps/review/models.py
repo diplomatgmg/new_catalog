@@ -4,7 +4,7 @@ from django.db import models
 class BaseReview(models.Model):
     RATING_CHOICES = [(rating, str(rating)) for rating in range(1, 6)]
 
-    author = models.ForeignKey("user.User", on_delete=models.CASCADE)
+    user = models.ForeignKey("user.User", on_delete=models.CASCADE)
     content = models.TextField()
     rating = models.PositiveSmallIntegerField(choices=RATING_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -18,14 +18,14 @@ class BaseReview(models.Model):
 class CPUReview(BaseReview):
     product = models.ForeignKey("product.CPUModel", on_delete=models.CASCADE)
 
-    @staticmethod
-    def get_category_slug():
+    @classmethod
+    def get_category_slug(cls):
         return "cpu"
 
 
 class GPUReview(BaseReview):
     product = models.ForeignKey("product.GPUModel", on_delete=models.CASCADE)
 
-    @staticmethod
-    def get_category_slug():
+    @classmethod
+    def get_category_slug(cls):
         return "gpu"

@@ -1,4 +1,4 @@
-from mixins.TemplateViewMixin import TemplateViewMixin
+from mixins.mixins import TemplateViewMixin
 
 
 class IndexView(TemplateViewMixin):

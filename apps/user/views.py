@@ -3,10 +3,10 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
+
 from apps.user.forms import UserLoginForm, UserRegisterForm
 from apps.user.models import User
-from mixins.CreateViewMixin import CreateViewMixin
-from mixins.TemplateViewMixin import TemplateViewMixin
+from mixins.mixins import CreateViewMixin, TemplateViewMixin
 
 
 class UserLoginView(LoginView):
