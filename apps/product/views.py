@@ -111,3 +111,15 @@ class GPUListView(BaseProductListView):
         ("base_clock", "Базовая частота"),
         ("boost_clock", "Частота турбобуста"),
     )
+
+
+class GPUDetailView(BaseProductDetailView):
+    model = GPUModel
+
+    list_display_fields = (
+        ("brand", "Бренд", ""),
+        ("family", "Семейство", ""),
+        ("model", "Модель", ""),
+        ("base_clock", "Частота ядра", "МГц"),
+        ("boost_clock", "Частота турбобуста", "МГц"),
+    )

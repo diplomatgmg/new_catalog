@@ -4,28 +4,29 @@
 
 
 {% block content %}
-    <form action="{% url 'register' %}" method="post" class="login-form">
-            {% csrf_token %}
+	<form action="{% url 'register' %}?next={{ request.path }}" method="post"
+		  class="login-form">
+		{% csrf_token %}
 
-        <label for="{{ form.username.id_for_label }}">Имя пользователя:</label>
-        {{ form.username }}
+		<label for="{{ form.username.id_for_label }}">Имя пользователя:</label>
+		{{ form.username }}
 
-        <label for="{{ form.email.id_for_label }}">Почта:</label>
-        {{ form.email }}
+		<label for="{{ form.email.id_for_label }}">Почта:</label>
+		{{ form.email }}
 
-        <label for="{{ form.password1.id_for_label }}">Пароль:</label>
-        {{ form.password1 }}
+		<label for="{{ form.password1.id_for_label }}">Пароль:</label>
+		{{ form.password1 }}
 
-        <label for="{{ form.password2.id_for_label }}">Повторите пароль:</label>
-        {{ form.password2 }}
+		<label for="{{ form.password2.id_for_label }}">Повторите пароль:</label>
+		{{ form.password2 }}
 
-        <button type="submit">Зарегистрироваться</button>
-    </form>
+		<button type="submit">Зарегистрироваться</button>
+	</form>
 
 
-    {% for field, errors in form.errors.items %}
-        {% for error in errors %}
-            <strong style="color: red">{{ error }}</strong><br><br>
-        {% endfor %}
-    {% endfor %}
+	{% for field, errors in form.errors.items %}
+		{% for error in errors %}
+			<strong style="color: red">{{ error }}</strong><br><br>
+		{% endfor %}
+	{% endfor %}
 {% endblock %}

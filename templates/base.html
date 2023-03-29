@@ -56,11 +56,11 @@
 			{% if user.is_staff %}
 				<a href="{% url 'admin:index' %}">Админка</a>
 			{% endif %}
-			<a href="{% url 'logout' %}">Выход</a>
+			<a href="{% url 'logout' %}?next={{ request.path }}">Выход</a>
 
 		{% else %}
-			<a href="{% url 'login' %}">Вход</a>
-			<a href="{% url 'register' %}">Регистрация</a>
+			<a href="{% url 'login' %}?next={{ request.path }}">Вход</a>
+			<a href="{% url 'register' %}?next={{ request.path }}">Регистрация</a>
 		{% endif %}
 
 	</div>

@@ -147,9 +147,21 @@ LOGOUT_REDIRECT_URL = reverse_lazy("index:index")
 
 FIXTURE_DIRS = [BASE_DIR / "fixtures"]
 
-PRODUCT_MODELS = ("product.CPUModel", "product.GPUModel")
-COMPARISON_MODELS = ("comparison.CPUComparison", "comparison.GPUComparison")
-REVIEW_MODELS = ("review.CPUReview", "review.GPUReview")
+MODEL_SLUG_PREFIXES = (
+    "cpu",
+    "gpu",
+)
+
+PRODUCT_MODELS = [
+    f"product.{prefix.upper()}Model" for prefix in MODEL_SLUG_PREFIXES
+]
+
+COMPARISON_MODELS = [
+    f"comparison.{prefix.upper()}Comparison" for prefix in MODEL_SLUG_PREFIXES
+]
+REVIEW_MODELS = [
+    f"review.{prefix.upper()}Review" for prefix in MODEL_SLUG_PREFIXES
+]
 
 # Уникальное имя для добавления товаров в сравнение в сессии пользователя
 COMPARISON_SESSION = "comparison"

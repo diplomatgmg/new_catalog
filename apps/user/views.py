@@ -1,8 +1,8 @@
 from django.contrib import auth, messages
 from django.contrib.auth.views import LoginView
+from django.http import QueryDict
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-
 
 from apps.user.forms import UserLoginForm, UserRegisterForm
 from apps.user.models import User
@@ -22,7 +22,7 @@ class UserLoginView(LoginView):
             )
             if user:
                 auth.login(self.request, user)
-                return self.form_valid(form)
+                return redirect(self.request.GET.get("next", self.request.path))
             messages.error(request, "Неверное имя пользователя и/или пароль")
         return self.form_invalid(form)
 
@@ -40,4 +40,4 @@ class UserRegisterView(CreateViewMixin, TemplateViewMixin):
         )
         user = auth.authenticate(username=username, password=password)
         auth.login(self.request, user)
-        return redirect(self.success_url)
+        return redirect(self.request.GET.get("next", self.request.path))

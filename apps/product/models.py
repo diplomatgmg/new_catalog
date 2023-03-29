@@ -2,7 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 
-from apps.comparison.models import CPUComparison, GPUComparison
+from apps.base_model.base_model import CPUBase, GPUBase
 
 
 class Brand(models.Model):
@@ -68,7 +68,7 @@ class BaseProductModel(models.Model):
         abstract = True
 
 
-class CPUModel(BaseProductModel):
+class CPUModel(CPUBase, BaseProductModel):
     family = models.CharField(
         max_length=50,
         verbose_name="Семейство",
@@ -192,17 +192,9 @@ class CPUModel(BaseProductModel):
         verbose_name="PCIe",
     )
 
-    @classmethod
-    def get_category_slug(cls):
-        return "cpu"
-
     @staticmethod
     def get_reverse_url():
         return reverse("product:cpu")
-
-    @staticmethod
-    def get_comparison_model():
-        return CPUComparison
 
     def get_full_name(self):
         return f"{self.brand.name} {self.family} {self.model}"
@@ -214,7 +206,7 @@ class CPUModel(BaseProductModel):
         )
 
 
-class GPUModel(BaseProductModel):
+class GPUModel(GPUBase, BaseProductModel):
     family = models.CharField(
         verbose_name="Семейство", max_length=50, help_text="Пример: GeForce RTX"
     )
@@ -233,10 +225,6 @@ class GPUModel(BaseProductModel):
     @staticmethod
     def get_reverse_url():
         return reverse("product:gpu")
-
-    @staticmethod
-    def get_comparison_model():
-        return GPUComparison
 
     def get_full_name(self):
         return f"{self.brand.name} {self.family} {self.model}"

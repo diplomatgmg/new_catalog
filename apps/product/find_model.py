@@ -1,24 +1,18 @@
 import re
 
 import numpy as np
-from django.apps import apps
-from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse
 from fuzzywuzzy import process
 
-PRODUCT_MODELS = settings.PRODUCT_MODELS
-
-product_models = [apps.get_model(model_name) for model_name in PRODUCT_MODELS]
-category_slugs = [
-    product.objects.first().category.slug for product in product_models
-]
+from services.services import get_all_slug_models, get_product_models
 
 
 def find_model(request):
     # Поиск по категории товара, если категория есть в HTTP_REFERER
     slugs = None
+    category_slugs = get_all_slug_models()
     for category_slug in category_slugs:
         if category_slug in request.META["HTTP_REFERER"].split("/"):
             slugs = get_slugs(category_slug)
@@ -60,6 +54,8 @@ def find_model(request):
 
 
 def get_slugs(slug=None):
+    product_models = get_product_models()
+
     if slug:
         for model in product_models:
             if model.objects.last().category.slug == slug:
