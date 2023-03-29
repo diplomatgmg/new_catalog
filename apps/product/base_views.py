@@ -140,6 +140,7 @@ class BaseProductListView(ListViewMixin, TemplateViewMixin):
                         getattr(product, field_name)
                         for product in queryset
                         if getattr(product, field_name) is not None
+                        and len(str(getattr(product, field_name))) > 0
                     )
                     if lambda_sort:
                         fields = sorted(fields, key=lambda_sort)
@@ -151,6 +152,7 @@ class BaseProductListView(ListViewMixin, TemplateViewMixin):
                         getattr(product, field_name)
                         for product in queryset
                         if getattr(product, field_name) is not None
+                        and len(str(getattr(product, field_name))) > 0
                     ),
                     default=None,
                 )

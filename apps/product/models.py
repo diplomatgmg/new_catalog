@@ -38,7 +38,7 @@ class BaseProductModel(models.Model):
         verbose_name="Производитель",
         help_text="Введите производителя процессора",
     )
-    slug = models.SlugField("Слаг", max_length=32, unique=True, blank=True)
+    slug = models.SlugField("Слаг", max_length=64, unique=True, blank=True)
 
     def __str__(self):
         return self.get_full_name()
