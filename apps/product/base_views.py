@@ -10,6 +10,7 @@ from mixins.mixins import DetailViewMixin, ListViewMixin, TemplateViewMixin
 class BaseProductListView(ListViewMixin, TemplateViewMixin):
     query = {}
     object_list = None
+    filter_object_list = None
     model = None
     template_name = "product/product-list.html"
     context_object_name = "products"
@@ -17,6 +18,7 @@ class BaseProductListView(ListViewMixin, TemplateViewMixin):
     choice_filter_fields = {}
     list_display_fields = ()
     brief_list = ()
+    skip_fields = ("brand",)
     paginate_by = 40
 
     def get(self, request, *args, **kwargs):
@@ -87,24 +89,24 @@ class BaseProductListView(ListViewMixin, TemplateViewMixin):
         if brand:
             queryset = queryset.filter(brand__name__in=brand)
 
+        filter_kwargs = {}
         for field_name in self.range_filter_fields:
             filter_value_min = self.request.GET.get(f"{field_name}_min")
             filter_value_max = self.request.GET.get(f"{field_name}_max")
-            filter_kwargs = {}
             if filter_value_min:
                 filter_kwargs[f"{field_name}__gte"] = filter_value_min
             if filter_value_max:
                 filter_kwargs[f"{field_name}__lte"] = filter_value_max
-            if filter_kwargs:
-                queryset = queryset.filter(**filter_kwargs)
 
         for field in self.choice_filter_fields:
-            if field not in ("brand",):
+            if field not in self.skip_fields:
                 value = self.request.GET.getlist(field)
                 if not value:
                     value = self.request.GET.getlist(f"{field}[]")
                 if value:
-                    queryset = queryset.filter(**{f"{field}__in": value})
+                    filter_kwargs[f"{field}__in"] = value
+
+        queryset = queryset.filter(**filter_kwargs)
 
         return queryset
 
@@ -117,57 +119,45 @@ class BaseProductListView(ListViewMixin, TemplateViewMixin):
 
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["context"] = {}
+        context["brief_list"] = self.brief_list
+        context["range_filter_fields"] = self.range_filter_fields
+        context["choice_filter_fields"] = self.choice_filter_fields
+        context["list_display_fields"] = self.list_display_fields
 
         if object_list is None:
             queryset = self.object_list
         else:
             queryset = object_list
 
-        context["range_filter_fields"] = self.range_filter_fields
-        context["choice_filter_fields"] = self.choice_filter_fields
-        context["list_display_fields"] = self.list_display_fields
-        context["brief_list"] = self.brief_list
-        context["context"] = {}
-
         context["context"]["brand"] = sorted(
             set(product.brand.name for product in queryset)
         )
 
-        if queryset.exists():
-            for field_name, lambda_sort in self.choice_filter_fields.items():
-                if field_name not in ("brand",):
-                    fields = set(
-                        getattr(product, field_name)
-                        for product in queryset
-                        if getattr(product, field_name) is not None
-                        and len(str(getattr(product, field_name))) > 0
-                    )
-                    if lambda_sort:
-                        fields = sorted(fields, key=lambda_sort)
-                    context["context"][field_name] = fields
+        for field_name in self.range_filter_fields:
+            fields = set(
+                getattr(product, field_name)
+                for product in queryset
+                if getattr(product, field_name)
+                or getattr(product, field_name) is False
+            )
+            context["context"][f"{field_name}_min"] = min(fields)
+            context["context"][f"{field_name}_max"] = max(fields)
 
-            for field_name in self.range_filter_fields:
-                context["context"][f"{field_name}_min"] = min(
-                    (
-                        getattr(product, field_name)
-                        for product in queryset
-                        if getattr(product, field_name) is not None
-                        and len(str(getattr(product, field_name))) > 0
-                    ),
-                    default=None,
+        for field_name, lambda_sort in self.choice_filter_fields.items():
+            if field_name not in self.skip_fields:
+                fields = set(
+                    getattr(product, field_name)
+                    for product in queryset
+                    if getattr(product, field_name)
+                    or getattr(product, field_name) is False
                 )
-                context["context"][f"{field_name}_max"] = max(
-                    (
-                        getattr(product, field_name)
-                        for product in queryset
-                        if getattr(product, field_name) is not None
-                    ),
-                    default=None,
-                )
+                if lambda_sort:
+                    fields = sorted(fields, key=lambda_sort)
+                context["context"][field_name] = list(fields)
 
         queryset = self.queryset_paginate(queryset)
         context["products"] = queryset
-
         return context
 
     def is_ajax(self):

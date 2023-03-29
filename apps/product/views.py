@@ -18,8 +18,8 @@ class CPUListView(BaseProductListView):
     )
 
     choice_filter_fields = {
-        "brand": lambda x: x,
-        "family": lambda x: (len(x), x),
+        "brand": None,
+        "family": lambda x: x,
         "model": lambda x: x,
         "year": lambda x: x,
         "segment": lambda x: x,
